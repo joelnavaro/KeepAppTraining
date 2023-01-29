@@ -8,42 +8,6 @@
 import SwiftUI
 import FirebaseAuth
 
-class AppViewModel: ObservableObject{
-    let auth = Auth.auth()
-    @Published var signedIn = false
-    
-    var isSignedIn: Bool{
-        //auth.currentuser== nil > not signed in
-        //!=nil > signed in
-        return auth.currentUser != nil
-    }
-    
-    func singIn(email: String, password: String){
-        auth.signIn(withEmail: email, password: password, completion: {
-            [weak self] result, error in
-            guard result != nil, error == nil else {return}
-            //success
-            DispatchQueue.main.async {
-                self?.signedIn = true
-            }
-        })
-    }
-    func singUp(email: String, password: String){
-        auth.createUser(withEmail: email, password: password, completion: {
-            [weak self] result, error in
-            guard result != nil, error == nil else {return}
-            //success
-            DispatchQueue.main.async {
-                self?.signedIn = true
-            }
-        })
-    }
-    func signOut(){
-        try? auth.signOut()
-        self.signedIn = false
-    }
-}
-
 struct ContentView: View {
     
     @EnvironmentObject var viewModel: AppViewModel
@@ -52,8 +16,11 @@ struct ContentView: View {
         VStack {
             NavigationView{
                 if viewModel.isSignedIn{
+                    
+                    //agregar aqui interface para overview
                     VStack{
-                        Text("You are signed in")
+                        Overview()
+                        //Text("You are signed in")
                         Button(action: {
                             viewModel.signOut()
                         }, label: {
@@ -75,6 +42,44 @@ struct ContentView: View {
         }
     }
 }
+struct Overview: View{
+    
+    
+    var body: some View{
+        NavigationView{
+            VStack{
+                HStack{
+                    Image(systemName: "person.fill")
+                        .font(.system(size: 64))
+                        .padding()
+                }
+                Spacer()
+                HStack{
+                    Button(action: {
+                        
+                    }, label: {
+                        Text("Exercises")
+                            .foregroundColor(Color.white)
+                            .frame(width: 200, height: 50)
+                            .background(Color.blue)
+                            .cornerRadius(8)
+                    })
+                    Button(action: {
+                        
+                    }, label: {
+                        Text("Create Workout")
+                            .foregroundColor(Color.white)
+                            .frame(width: 200, height: 50)
+                            .background(Color.blue)
+                            .cornerRadius(8)
+                    })
+                }.padding()
+            }.padding()
+        }
+        .navigationTitle("Overview")
+        .background(Color(.init(white: 0, alpha: 0.05)))
+    }
+}
     
 struct SignInView: View {
     
@@ -86,26 +91,24 @@ struct SignInView: View {
         ZStack {
             Color(red: 202/256, green: 242/256, blue: 249/256)
                 .ignoresSafeArea()
-            VStack{
+            VStack(){
+                Spacer()
                 Image(systemName:"dumbbell.fill")
                     .resizable()
                     .scaledToFit()
                     .frame(width: 150, height: 150)
                 
                 VStack{
-                    TextField("Email Address", text: $email)
-                        .autocorrectionDisabled(true)
-                        .textInputAutocapitalization(.never)
-                        .padding()
-                        .background(Color(.secondarySystemBackground))
-                    SecureField("Password", text: $password)
-                        .autocorrectionDisabled(true)
-                        .textInputAutocapitalization(.never)
-                        .padding()
-                        .background(Color(.secondarySystemBackground))
-                    
+                    Group{
+                        TextField("Email Address", text: $email)
+                        SecureField("Password", text: $password)
+                    }
+                    .autocorrectionDisabled(true)
+                    .textInputAutocapitalization(.never)
+                    .padding()
+                    .background(Color(.secondarySystemBackground))
                     Button(action: {
-                        //make sure email and password are not empty
+                        //make sure email and password are not empty, write different code, so the user knows what happens if the button doesnt react
                         guard !email.isEmpty, !password.isEmpty else {return}
                         
                         viewModel.singIn(email: email, password: password)
@@ -135,26 +138,23 @@ struct SignUpView: View {
     var body: some View {
         VStack {
             VStack{
-                //Spacer()
+                Spacer()
                 Image(systemName:"dumbbell.fill")
                     .resizable()
                     .scaledToFit()
                     .frame(width: 150, height: 150)
                 
                 VStack{
-                    TextField("Email Address", text: $email)
-                        .autocorrectionDisabled(true)
-                        .textInputAutocapitalization(.never)
-                        .padding()
-                        .background(Color(.secondarySystemBackground))
-                    SecureField("Password", text: $password)
-                        .autocorrectionDisabled(true)
-                        .textInputAutocapitalization(.never)
-                        .padding()
-                        .background(Color(.secondarySystemBackground))
-                    
+                    Group{
+                        TextField("Email Address", text: $email)
+                        SecureField("Password", text: $password)
+                    }
+                    .autocorrectionDisabled(true)
+                    .textInputAutocapitalization(.never)
+                    .padding()
+                    .background(Color(.secondarySystemBackground))
                     Button(action: {
-                        //make sure email and password are not empty
+                        //make sure email and password are not empty, write different code, so the user knows what happens if the button doesnt react
                         guard !email.isEmpty, !password.isEmpty else {return}
                         
                         viewModel.singUp(email: email, password: password)
@@ -182,7 +182,12 @@ struct SignUpView: View {
 
 
 struct ContentView_Previews: PreviewProvider {
+    @EnvironmentObject var viewModel: AppViewModel
+    
     static var previews: some View {
-        ContentView()
+        
+        //ContentView()
+        //SignInView()
+        Overview()
     }
 }
