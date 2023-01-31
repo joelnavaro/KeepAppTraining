@@ -8,17 +8,37 @@
 import Foundation
 import FirebaseAuth
 
+import SwiftUI
+import FirebaseCore
+import FirebaseFirestore
+
 class AppViewModel: ObservableObject{
     let auth = Auth.auth()
     @Published var signedIn = false
     
-    var isSignedIn: Bool{
-        //auth.currentuser== nil > not signed in
-        //!=nil > signed in
+    //auth.currentuser == nil > not signed in
+    //!=nil > signed in
+    var userCreated : Bool{
         return auth.currentUser != nil
-    }
-    
+    }    
     //crear funciones read/write
+    func signInAnonymously(){
+        if auth.currentUser == nil{
+            auth.signInAnonymously { authResult, error in
+                if let error = error{
+                    print("Failed to sign in: ", error)
+                    return
+                }else{
+                    print("Succesfully signed in: \(authResult?.user.uid ?? "")")
+                }
+                
+                /*let currentUser = self.auth.currentUser?.uid
+                if let currentUser = currentUser{
+                    print(currentUser)
+                }*/
+            }
+        }
+    }
     
     func singIn(email: String, password: String){
         auth.signIn(withEmail: email, password: password, completion: {

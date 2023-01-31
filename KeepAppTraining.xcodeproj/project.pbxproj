@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		C30433A42982958000088065 /* AppViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C30433A32982958000088065 /* AppViewModel.swift */; };
+		C30433A6298880F700088065 /* Exercise.swift in Sources */ = {isa = PBXBuildFile; fileRef = C30433A5298880F600088065 /* Exercise.swift */; };
+		C30433A82988840000088065 /* Workout.swift in Sources */ = {isa = PBXBuildFile; fileRef = C30433A72988840000088065 /* Workout.swift */; };
 		C38796E82981D178007FFF50 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C38796E72981D178007FFF50 /* GoogleService-Info.plist */; };
 		C38796EB2981D24C007FFF50 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = C38796EA2981D24C007FFF50 /* FirebaseAuth */; };
 		C38796ED2981D24C007FFF50 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = C38796EC2981D24C007FFF50 /* FirebaseFirestore */; };
@@ -41,6 +43,8 @@
 
 /* Begin PBXFileReference section */
 		C30433A32982958000088065 /* AppViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppViewModel.swift; sourceTree = "<group>"; };
+		C30433A5298880F600088065 /* Exercise.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Exercise.swift; sourceTree = "<group>"; };
+		C30433A72988840000088065 /* Workout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Workout.swift; sourceTree = "<group>"; };
 		C38796E72981D178007FFF50 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		C3B8210D29818E8500F8BFCA /* KeepAppTraining.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KeepAppTraining.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C3B8211029818E8500F8BFCA /* KeepAppTrainingApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeepAppTrainingApp.swift; sourceTree = "<group>"; };
@@ -86,6 +90,8 @@
 		C3B8210429818E8500F8BFCA = {
 			isa = PBXGroup;
 			children = (
+				C30433A72988840000088065 /* Workout.swift */,
+				C30433A5298880F600088065 /* Exercise.swift */,
 				C3B8210F29818E8500F8BFCA /* KeepAppTraining */,
 				C3B8212029818E8D00F8BFCA /* KeepAppTrainingTests */,
 				C3B8212A29818E8E00F8BFCA /* KeepAppTrainingUITests */,
@@ -282,7 +288,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				C3B8211329818E8500F8BFCA /* ContentView.swift in Sources */,
+				C30433A6298880F700088065 /* Exercise.swift in Sources */,
 				C3B8211129818E8500F8BFCA /* KeepAppTrainingApp.swift in Sources */,
+				C30433A82988840000088065 /* Workout.swift in Sources */,
 				C30433A42982958000088065 /* AppViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

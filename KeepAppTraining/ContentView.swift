@@ -7,20 +7,21 @@
 
 import SwiftUI
 import FirebaseAuth
+import FirebaseCore
+import FirebaseFirestore
+
 
 struct ContentView: View {
     
     @EnvironmentObject var viewModel: AppViewModel
+    var workout = Workout(name: "First Workout")
     
     var body: some View {
         VStack {
             NavigationView{
-                if viewModel.isSignedIn{
-                    
-                    //agregar aqui interface para overview
+                if viewModel.userCreated{
                     VStack{
-                        Overview()
-                        //Text("You are signed in")
+                        Overview(workout: workout)
                         Button(action: {
                             viewModel.signOut()
                         }, label: {
@@ -37,23 +38,36 @@ struct ContentView: View {
                 }
             }
             .onAppear(perform: {
-                viewModel.signedIn = viewModel.isSignedIn
+                print("signed in: \(viewModel.signedIn)")
+                print("user created: \(viewModel.userCreated)")
+                viewModel.signedIn = viewModel.userCreated
             })
         }
     }
 }
 struct Overview: View{
-    
+    var workout : Workout
     
     var body: some View{
         NavigationView{
             VStack{
                 HStack{
                     Image(systemName: "person.fill")
-                        .font(.system(size: 64))
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 128, height: 128)
+                        .cornerRadius(64)
+                        //.font(.system(size: 64))
                         .padding()
                 }
+                .overlay(RoundedRectangle(cornerRadius: 64).stroke(Color.blue, lineWidth: 3))
+                //.border(Color.blue, width: 3)
                 Spacer()
+                VStack{
+                    List(){
+                        Text(workout.name)
+                    }
+                }
                 HStack{
                     Button(action: {
                         
@@ -80,6 +94,13 @@ struct Overview: View{
         .background(Color(.init(white: 0, alpha: 0.05)))
     }
 }
+struct ExercisesView: View{
+    var exercise : Exercise
+    
+    var body: some View{
+        Text(exercise.name)
+    }
+}
     
 struct SignInView: View {
     
@@ -89,7 +110,7 @@ struct SignInView: View {
     
     var body: some View {
         ZStack {
-            Color(red: 202/256, green: 242/256, blue: 249/256)
+            Color(red: 84/256, green: 202/256, blue: 226/256)
                 .ignoresSafeArea()
             VStack(){
                 Spacer()
@@ -97,7 +118,6 @@ struct SignInView: View {
                     .resizable()
                     .scaledToFit()
                     .frame(width: 150, height: 150)
-                
                 VStack{
                     Group{
                         TextField("Email Address", text: $email)
@@ -120,13 +140,22 @@ struct SignInView: View {
                             .cornerRadius(8)
                     })
                     NavigationLink("Create Account", destination: SignUpView())
+                    //cant make it to sing in anonimously
+                    Button("Try without account!"){
+                        viewModel.signInAnonymously()
+                    }
+                    //NavigationLink("Try without account", destination: Overview())
+                    /*NavigationLink{
+                        
+                    } label:{
+                        
+                    }*/
                 }
                 .padding()
                 Spacer()
-                }
-            .navigationTitle("Sign In")
             }
-        
+            .navigationTitle("Sign In")
+        }
     }
 }
 struct SignUpView: View {
@@ -136,7 +165,9 @@ struct SignUpView: View {
     @EnvironmentObject var viewModel: AppViewModel
     
     var body: some View {
-        VStack {
+        ZStack {
+            Color(red: 202/256, green: 242/256, blue: 249/256)
+                .ignoresSafeArea()
             VStack{
                 Spacer()
                 Image(systemName:"dumbbell.fill")
@@ -169,25 +200,22 @@ struct SignUpView: View {
                         .padding()
                 }
                 .padding()
-                
                 Spacer()
-                
             }
             .navigationTitle("Create Account")
-            
         }
-        .padding()
     }
 }
 
 
-struct ContentView_Previews: PreviewProvider {
-    @EnvironmentObject var viewModel: AppViewModel
+/*struct ContentView_Previews: PreviewProvider {
+    @StateObject var workout : Workout
     
     static var previews: some View {
         
         //ContentView()
+        //    .environmentObject(AppViewModel())
         //SignInView()
-        Overview()
+        Overview(workout: workout)
     }
-}
+}*/
