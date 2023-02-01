@@ -30,12 +30,16 @@ class AppViewModel: ObservableObject{
                     return
                 }else{
                     print("Succesfully signed in: \(authResult?.user.uid ?? "")")
+                    //self.signedIn = true
+                    DispatchQueue.main.async {
+                        self.signedIn = true
+                    }
                 }
                 
                 /*let currentUser = self.auth.currentUser?.uid
-                if let currentUser = currentUser{
-                    print(currentUser)
-                }*/
+                 if let currentUser = currentUser{
+                 print(currentUser)
+                 }*/
             }
         }
     }
@@ -46,7 +50,7 @@ class AppViewModel: ObservableObject{
             //guard result != nil, error == nil else {return}
             if let error = error{
                 print("Failed to sign in: ", error)
-             return
+                return
             }
             print("Succesfully signed in: \(result?.user.uid ?? "")")
             //success
@@ -61,7 +65,7 @@ class AppViewModel: ObservableObject{
             //guard result != nil, error == nil else {return}
             if let error = error{
                 print("Failed to sign un: ", error)
-             return
+                return
             }
             print("Succesfully created user: \(result?.user.uid ?? "")")
             //success

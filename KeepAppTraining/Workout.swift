@@ -16,6 +16,9 @@ class Workout: Identifiable, ObservableObject{
         self.name = name
         self.exercises = exercises
         
-        self.exercises.append(Exercise(id: id, name: "Bicep Curl", muscleGroup: "Bicep"))
+        addMockData()
+    }
+    func addMockData(){
+        exercises.append(Exercise(name: "Bicep Curl", muscleGroup: "Bicep"))
     }
 }
