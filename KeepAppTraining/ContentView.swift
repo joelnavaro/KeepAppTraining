@@ -24,7 +24,7 @@ struct ContentView: View {
                 if viewModel.userCreated{
                     VStack{
                         OverviewView(workoutModel: workout)
-                        Button(action: {
+                        /*Button(action: {
                             viewModel.signOut()
                         }, label: {
                             Text("Sign Out")
@@ -33,7 +33,7 @@ struct ContentView: View {
                                 .background(Color.red)
                                 .cornerRadius(8)
                                 .padding()
-                        })
+                        })*/
                     }
                 }else{
                     SignInView(workout: workout)

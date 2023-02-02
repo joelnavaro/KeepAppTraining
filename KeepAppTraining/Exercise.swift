@@ -13,5 +13,8 @@ struct Exercise: Identifiable{
     
     var name : String
     var muscleGroup : String
+    //var chestList : [Exercise]
+    
+    
     
 }

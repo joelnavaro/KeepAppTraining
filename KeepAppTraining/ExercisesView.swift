@@ -16,52 +16,69 @@ import FirebaseFirestore
 struct ExercisesView: View{
     //var exercise : Exercise
     @State var chest = [Exercise]()
-    @State var menuBool = [false,false,false,false]
-    //@StateObject var workout : Workout
+    var buttonsMenu = ["Arms", "Chest"]
+    var buttonsMenu2 = ["Back", "Legs"]
+    @StateObject var workoutModel = Workout()
     
     var body: some View{
         //Text(exercise.name)
         NavigationView{
-            VStack{
-                HStack{
-                    ExerciseButton(name: "Chest", arrayModel: chest).onTapGesture {
-                        /*ForEach(menuBool){ button in
-                         button.toggle()
-                         }*/
-                        menuBool[0].toggle()
+            ZStack{
+                Color(red: 175/256, green: 230/256, blue: 245/256)
+                    .ignoresSafeArea()
+            ScrollView{
+                VStack{
+                    HStack{
+                        ForEach(buttonsMenu, id: \.self){ item in
+                            Button(action: {}){
+                                ButtonView(item: item)
+                            }
+                        }
+                        .padding(8)
                     }
-                    ExerciseButton(name: "Arms", arrayModel: chest).onTapGesture {
-                        menuBool[1].toggle()
+                    HStack{
+                        ForEach(buttonsMenu2, id: \.self){ item in
+                            Button(action: {}){
+                                ButtonView(item: item)
+                            }
+                        }
+                        .padding(8)
+                    }//Hstack
+                    Divider().padding(8)//linea divisoria
+                    Text("Here goes a list with content from the Buttons above")
+                    Divider().padding(8)//linea divisoria
+                    List(){
+                        Section(content: {}, header: {Text("Arms")}){
+                            ForEach(workoutModel.exercisesList) { exercise in
+                                Text(exercise.muscleGroup)
+                            }
+                        }
                     }
-                }
-                HStack{
-                    ExerciseButton(name: "Back", arrayModel: chest)
-                    ExerciseButton(name: "Legs", arrayModel: chest)
-                }
-                Text("Here goes a list with content from the Buttons above")
-                List{
-                    ForEach(chest) { exercise in
-                        Text(exercise.name)
+                    .cornerRadius(25)
+                    .padding(2)
+                    List(workoutModel.exercisesList) {
+                        Text($0.name)
                     }
-                    
-                }
-                //needs a sheet to add exercises to a muscle group
-                Button(action: {
-                    
-                }, label: {
-                    Text("Add Exercise")
-                        .foregroundColor(Color.white)
-                        .frame(width: 200, height: 50)
-                        .background(Color.blue)
-                        .cornerRadius(8)
-                })
+                    .cornerRadius(25)
+                    .padding(2)
+                    //needs a sheet to add exercises to a muscle group
+                    Button(action: { }, label: {
+                        Text("Add Exercise")
+                            .foregroundColor(Color.white)
+                            .frame(width: 200, height: 50)
+                            .background(Color.blue)
+                            .cornerRadius(8)
+                    })//Button add exercise
+                }//Vstack
+                .frame(height: 750)
+                .navigationTitle("Exercises")
             }
-            .navigationBarTitle("Exercises")
-            .background(Color(.init(white: 1, alpha: 0.05)))
-            //.sheet(isPresented: <#T##Binding<Bool>#>, content: <#T##() -> View#>)
-        }
-    }
-}
+                //.background(Color(.init(white: 2, alpha: 0.05)))
+            }//scrollview
+        }//navigationview
+    }//body
+    
+}//struct
 struct ExerciseButton: View {
     //nombre para el boton
     var name: String
@@ -69,6 +86,7 @@ struct ExerciseButton: View {
     @State var menuBool = [Bool]()
     //array para los ejercicios de cara grupo
     @State var arrayModel: [Exercise]
+    //@StateObject var workoutModel = Workout()
     
     var body: some View{
         Button(action: {
@@ -98,5 +116,26 @@ struct ExercisesView_Previews: PreviewProvider {
     
     static var previews: some View {
         ExercisesView()
+    }
+}
+
+struct ButtonView: View {
+    var item: String
+    var body: some View {
+        ZStack{
+            Color(red: 242/256, green: 242/256, blue: 247/256)
+                .frame(width: 100, height: 50)
+                .background((Color(red: 242/256, green: 242/256, blue: 247/256)).opacity(2))
+                .cornerRadius(10)
+                .shadow(color: Color.gray, radius: 5, x: 5)
+            
+            Color(red: 255/256, green: 255/256, blue: 255/256)
+                .blendMode(.colorBurn)
+                .frame(width: 70, height: 35)
+                .background(Color(red: 255/256, green: 255/256, blue: 255/256))
+                .cornerRadius(20)
+            Text("\(item)")
+            
+        }
     }
 }
