@@ -13,7 +13,8 @@ import FirebaseFirestore
 
 struct OverviewView: View {
     @EnvironmentObject var viewModel: AppViewModel
-    var workout : Workout? = nil
+    //var workout : Workout? = nil
+    @StateObject var workoutModel = Workout()
     @State var nextPage = false
     
     var body: some View{
@@ -33,8 +34,10 @@ struct OverviewView: View {
                 Spacer()
                 VStack{
                     List(){
-                        if let workout = workout{
-                            Text(workout.name)
+                        ForEach(workoutModel.workoutsList){ workout in
+                            if let name = workout.name{
+                                Text(name)
+                            }
                         }
                     }
                 }
@@ -65,11 +68,14 @@ struct OverviewView: View {
         }
         .navigationTitle("Overview")
         .background(Color(.init(white: 0, alpha: 0.05)))
+        .onAppear(){
+            print(workoutModel.exercisesList.count)
+        }
     }
 }
 
 struct OverviewView_Previews: PreviewProvider {
-    @StateObject var workout : Workout
+    @StateObject var model : Workout
     
     static var previews: some View {
         OverviewView()

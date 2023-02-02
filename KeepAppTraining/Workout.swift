@@ -6,19 +6,27 @@
 //
 
 import Foundation
+import SwiftUI
 
 class Workout: Identifiable, ObservableObject{
     var id = UUID()
-    var name : String
-    @Published var exercises = [Exercise]()
+    var name : String?
+    @Published var exercisesList = [Exercise]()
+    @Published var workoutsList = [Workout]()
     
-    init(name : String, exercises: [Exercise] = [Exercise]()) {
-        self.name = name
-        self.exercises = exercises
-        
+    init(){
         addMockData()
     }
+    
+    init(name : String) {
+        self.name = name
+    }
+    
     func addMockData(){
-        exercises.append(Exercise(name: "Bicep Curl", muscleGroup: "Bicep"))
+        exercisesList.append(Exercise(name: "Cable Triceps Pushdown", muscleGroup: "Arms"))
+        exercisesList.append(Exercise(name: "Biceps curl", muscleGroup: "Arms"))
+        
+        workoutsList.append(Workout(name: "First Workout"))
+        workoutsList.append(Workout(name: "Second Workout"))
     }
 }

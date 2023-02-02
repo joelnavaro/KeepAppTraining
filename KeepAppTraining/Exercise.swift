@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftUI
 
 struct Exercise: Identifiable{
     var id = UUID()

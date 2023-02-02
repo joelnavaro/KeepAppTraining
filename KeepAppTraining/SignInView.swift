@@ -16,7 +16,7 @@ struct SignInView: View {
     @State var password = ""
     @EnvironmentObject var viewModel: AppViewModel
     //cause the testing mode needs an overview(), which needs a workout
-    var workout : Workout? = nil
+    @StateObject var workout = Workout()
     
     var body: some View {
         ZStack {
@@ -50,7 +50,7 @@ struct SignInView: View {
                             .cornerRadius(8)
                     })
                     NavigationLink("Create Account", destination: SignUpView())
-                    NavigationLink("Try without account", destination: OverviewView(workout: workout)).onTapGesture {
+                    NavigationLink("Try without account", destination: OverviewView(workoutModel: workout)).onTapGesture {
                         //does not work: ask david how to make a tapgesture work!
                         //viewModel.signedIn = true
                         print(viewModel.signedIn)

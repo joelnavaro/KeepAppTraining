@@ -16,14 +16,14 @@ struct ContentView: View {
     @EnvironmentObject var viewModel: AppViewModel
     //este workout solo sale en contentview(), no en overview
     // CV es la app y lo demas son solo views
-    var workout = Workout(name: "First Workout")
+    @StateObject var workout = Workout()
     
     var body: some View {
         VStack {
             NavigationView{
                 if viewModel.userCreated{
                     VStack{
-                        OverviewView(workout: workout)
+                        OverviewView(workoutModel: workout)
                         Button(action: {
                             viewModel.signOut()
                         }, label: {
@@ -54,8 +54,8 @@ struct ContentView: View {
 
 struct ContentView_Previews: PreviewProvider {
     @EnvironmentObject var viewModel: AppViewModel
+    
     static var previews: some View {
-        
         ContentView()
             .environmentObject(AppViewModel())
     }
