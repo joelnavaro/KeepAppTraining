@@ -39,8 +39,10 @@ struct SignInView: View {
                     .background(Color(.secondarySystemBackground))
                     Button(action: {
                         //make sure email and password are not empty, write different code, so the user knows what happens if the button doesnt react
-                        guard !email.isEmpty, !password.isEmpty else {return}
-                        
+                        guard !email.isEmpty, !password.isEmpty else {
+                            
+                            return
+                        }
                         viewModel.singIn(email: email, password: password)
                     }, label: {
                         Text("Sign In")
@@ -51,9 +53,13 @@ struct SignInView: View {
                     })
                     NavigationLink("Create Account", destination: SignUpView())
                     NavigationLink("Try without account", destination: OverviewView(workoutModel: workout)).onTapGesture {
+                        /*if Auth.auth().currentUser == nil {
+                            viewModel.signedIn = true
+                            viewModel.signInAnonymously()
+                        }
                         //does not work: ask david how to make a tapgesture work!
                         //viewModel.signedIn = true
-                        print(viewModel.signedIn)
+                        print(viewModel.signedIn)*/
                     }
                 }
                 .padding()

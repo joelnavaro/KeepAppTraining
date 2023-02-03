@@ -22,7 +22,6 @@ struct ExercisesView: View{
     
     var body: some View{
         //Text(exercise.name)
-        NavigationView{
             ZStack{
                 Color(red: 175/256, green: 230/256, blue: 245/256)
                     .ignoresSafeArea()
@@ -55,12 +54,12 @@ struct ExercisesView: View{
                         }
                     }
                     .cornerRadius(25)
-                    .padding(2)
+                    .padding(8)
                     List(workoutModel.exercisesList) {
                         Text($0.name)
                     }
                     .cornerRadius(25)
-                    .padding(2)
+                    .padding(8)
                     //needs a sheet to add exercises to a muscle group
                     Button(action: { }, label: {
                         Text("Add Exercise")
@@ -75,11 +74,11 @@ struct ExercisesView: View{
             }
                 //.background(Color(.init(white: 2, alpha: 0.05)))
             }//scrollview
-        }//navigationview
+        //navigationview
     }//body
     
 }//struct
-struct ExerciseButton: View {
+/*struct ExerciseButton: View {
     //nombre para el boton
     var name: String
     //array bool para los grupos musculares
@@ -107,7 +106,7 @@ struct ExerciseButton: View {
     func menuBools(){
         
     }
-}
+}*/
 
 
 struct ExercisesView_Previews: PreviewProvider {
@@ -121,9 +120,25 @@ struct ExercisesView_Previews: PreviewProvider {
 
 struct ButtonView: View {
     var item: String
+    var width1: Int?
+    var width2: Int?
+    
     var body: some View {
         ZStack{
-            Color(red: 242/256, green: 242/256, blue: 247/256)
+            Color(red: 72/256, green: 181/256, blue: 216/256)
+                .frame(width: 100, height: 50)
+                .cornerRadius(10)
+                .shadow(color: Color.gray, radius: 5, x: 5)
+            Color(red: 255/256, green: 255/256, blue: 255/256)
+                .blendMode(.colorBurn)
+                .frame(width: 70, height: 35)
+                .background(Color(red: 255/256, green: 255/256, blue: 255/256))
+                //.rotationEffect(.degrees(45))
+                .cornerRadius(20)
+            Text("\(item)")
+            
+            //list colors
+            /*Color(red: 242/256, green: 242/256, blue: 247/256)
                 .frame(width: 100, height: 50)
                 .background((Color(red: 242/256, green: 242/256, blue: 247/256)).opacity(2))
                 .cornerRadius(10)
@@ -133,9 +148,7 @@ struct ButtonView: View {
                 .blendMode(.colorBurn)
                 .frame(width: 70, height: 35)
                 .background(Color(red: 255/256, green: 255/256, blue: 255/256))
-                .cornerRadius(20)
-            Text("\(item)")
-            
+                .cornerRadius(20)*/
         }
     }
 }

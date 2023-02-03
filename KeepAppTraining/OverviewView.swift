@@ -95,7 +95,13 @@ struct OverviewView: View {
         }
         .navigationTitle("Overview")
         .onAppear(){
-            print(workoutModel.exercisesList.count)
+            print("exercise list: \(workoutModel.exercisesList.count)")
+            if Auth.auth().currentUser == nil {
+                //viewModel.signedIn = true
+                viewModel.signInAnonymously()
+            }
+            guard let user = Auth.auth().currentUser?.uid else{return}
+            print(user)
         }
     }
 }

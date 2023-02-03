@@ -39,14 +39,6 @@ struct ContentView: View {
                     SignInView(workout: workout)
                 }
             }
-            .onAppear(perform: {
-                if Auth.auth().currentUser == nil {
-                    viewModel.signInAnonymously()
-                }
-                viewModel.signedIn = viewModel.userCreated
-                print("signed in: \(viewModel.signedIn)")
-                print("user created: \(viewModel.userCreated)")
-            })
         }
     }
 }
