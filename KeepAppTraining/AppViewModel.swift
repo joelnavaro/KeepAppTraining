@@ -15,12 +15,17 @@ import FirebaseFirestore
 class AppViewModel: ObservableObject{
     let auth = Auth.auth()
     @Published var signedIn = false
+    @Published var workoutList = [Workout]()
+    @Published var testWorkout = Workout()
     
     //auth.currentuser == nil > not signed in
     //!=nil > signed in
     var userCreated : Bool{
         return auth.currentUser != nil
-    }    
+    }
+    func mockdata(){
+        
+    }
     //crear funciones read/write
     func signInAnonymously(){
         if auth.currentUser == nil{
