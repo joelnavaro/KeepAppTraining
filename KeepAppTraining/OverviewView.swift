@@ -13,7 +13,6 @@ import FirebaseFirestore
 //podria llamarse MainView
 struct OverviewView: View {
     @EnvironmentObject var viewModel: AppViewModel
-    //var workout : Workout? = nil
     @StateObject var workoutModel = Workout()
     @State var nextPage = false
     

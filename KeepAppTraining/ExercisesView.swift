@@ -14,13 +14,12 @@ import FirebaseCore
 import FirebaseFirestore
 
 struct ExercisesView: View{
-    //var exercise : Exercise
     @EnvironmentObject var viewModel: AppViewModel
-    @State var chest = [Exercise]()
-    var buttonsMenu = ["Arms", "Chest", "Back", "Legs"]
-    //var buttonsMenu2 = ["Back", "Legs"]
-    @StateObject var workoutModel = Workout()
-    @State var exerciseList : [Exercise] = []
+    //@State var chest = [Exercise]()
+    var buttonsMenu = ["Arms", "Chest", "Back", "Legs"] //names on buttons
+    //@StateObject var workoutModel = Workout() //un workout
+    @State var exerciseList : [Exercise] = [] //lista para los botones
+    @State var nextPage = false
     
     var body: some View{
         //Text(exercise.name)
@@ -34,28 +33,30 @@ struct ExercisesView: View{
                         ForEach(buttonsMenu, id: \.self){ item in
                             Button(action: {
                                 exerciseList = showList(from: viewModel, group: item)
-                            }){
-                                ButtonView(item: item)
-                            }
+                            }){ ButtonView(item: item)}
                         }
                         .padding(3)
                         Spacer(minLength: 2)
                     }//Hstack
                     VStack{
                         Divider().padding(8)//linea divisoria
-                        Text("Here goes a list with content from the Buttons above")
+                        Text("Create a customized view for every cell")
+                        Text("Code the onDelete")
                         Divider().padding(8)//linea divisoria
                         List(){
-                            ForEach(exerciseList) { exercise in
-                                Text(exercise.name)
+                            ForEach(exerciseList){ exercise in
+                                NavigationLink(destination: CellView(name: exercise.name, muscleGroup: exercise.muscleGroup), label: {Text(exercise.name)})
                             }
+                            //.onDelete(perform: <#T##Optional<(IndexSet) -> Void>##Optional<(IndexSet) -> Void>##(IndexSet) -> Void#>)
                         }
                         .cornerRadius(25)
                         .padding(8)
                     }
                     .padding(2)
                     //needs a sheet to add exercises to a muscle group
-                    Button(action: { }, label: {
+                    Button(action: {
+                        nextPage = true
+                    }, label: {
                         Text("Add Exercise")
                             .foregroundColor(Color.white)
                             .frame(width: 200, height: 50)
@@ -71,11 +72,13 @@ struct ExercisesView: View{
             //.background(Color(.init(white: 2, alpha: 0.05)))
         }//zstack
         .onAppear(){
-            exerciseList = showList(from: viewModel, group: buttonsMenu[0])
+            exerciseList = showList(from: viewModel, group: buttonsMenu[0])}
+        .sheet(isPresented: $nextPage){ //en este content se puede agregar un onDismiss: para que pase algo al cerrar el sheet
+            AddExercise()
         }
         //navigationview
     }//body
-    func showList(from a: AppViewModel, group: String)->[Exercise]{
+    func showList(from model: AppViewModel, group: String)->[Exercise]{
         var list = [Exercise]()
         //for a list of workouts
         /*for workout in a.workoutList{
@@ -86,18 +89,29 @@ struct ExercisesView: View{
             }
         }*/
         //using a test workout created in appviewmodel
-        for exercise in a.testWorkout.exercisesList{
+        for exercise in model.testWorkout.exercisesList{
             if exercise.muscleGroup == group{
                 list.append(exercise)
             }
         }
-        print("workouts: \(a.workoutList.count)")
-        print("exercises: \(a.testWorkout.exercisesList.count)")
+        print("exercises: \(model.testWorkout.exercisesList.count)")
         print(exerciseList.count)
         print(list.count)
         return list
     }
 }//struct
+struct CellView: View{
+    var name: String
+    var muscleGroup: String
+    
+    var body: some View{
+        Text(muscleGroup)
+        Text(name)
+    }
+    func saveExercise(){
+        
+    }
+}
 /*struct ExerciseButton: View {
     //nombre para el boton
     var name: String
@@ -127,17 +141,18 @@ struct ExercisesView: View{
         
     }
 }*/
-
-
-struct ExercisesView_Previews: PreviewProvider {
-    @State var chest : [Exercise]
-    @State var menuBool : [Bool]
-    
-    static var previews: some View {
-        ExercisesView()
+struct AddExercise: View{
+    var body: some View {
+        VStack{
+            Text("Add exercises to the model list in view model")
+            Text("create a view to show exercises objects")
+            Text("create NavBarTitle/NaviBarItems")
+            Text("create func to save exercises")
+            Text("if you want info from previous page, create a variable in the new page of the same type and a func that saves in this variable what you want to send back in the func that saves the exercise")
+        }
+        
     }
 }
-
 struct ButtonView: View {
     var item: String
     var width1: Int?
@@ -172,3 +187,14 @@ struct ButtonView: View {
         }
     }
 }
+
+
+struct ExercisesView_Previews: PreviewProvider {
+    @EnvironmentObject var viewModel: AppViewModel
+    
+    static var previews: some View {
+        ExercisesView()
+            .environmentObject(AppViewModel())
+    }
+}
+

@@ -116,8 +116,7 @@
 		C3B8210F29818E8500F8BFCA /* KeepAppTraining */ = {
 			isa = PBXGroup;
 			children = (
-				C30433A72988840000088065 /* Workout.swift */,
-				C30433A5298880F600088065 /* Exercise.swift */,
+				C3FE33E7298E7F9900B6319B /* Classes */,
 				C37D01B1298AD3B50007991F /* ExercisesView.swift */,
 				C37D01B3298AD9C10007991F /* SignInView.swift */,
 				C3B8211029818E8500F8BFCA /* KeepAppTrainingApp.swift */,
@@ -154,6 +153,15 @@
 				C3B8212D29818E8E00F8BFCA /* KeepAppTrainingUITestsLaunchTests.swift */,
 			);
 			path = KeepAppTrainingUITests;
+			sourceTree = "<group>";
+		};
+		C3FE33E7298E7F9900B6319B /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				C30433A72988840000088065 /* Workout.swift */,
+				C30433A5298880F600088065 /* Exercise.swift */,
+			);
+			path = Classes;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

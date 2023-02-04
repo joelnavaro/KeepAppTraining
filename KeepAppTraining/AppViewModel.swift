@@ -15,7 +15,8 @@ import FirebaseFirestore
 class AppViewModel: ObservableObject{
     let auth = Auth.auth()
     @Published var signedIn = false
-    @Published var workoutList = [Workout]()
+    //@Published var workoutList = [Workout]()
+    //maybe create a class user where the testworkout exists as a user base-workout
     @Published var testWorkout = Workout()
     
     //auth.currentuser == nil > not signed in
