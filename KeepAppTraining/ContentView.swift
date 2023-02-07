@@ -16,14 +16,14 @@ struct ContentView: View {
     @EnvironmentObject var viewModel: AppViewModel
     //este workout solo sale en contentview(), no en overview
     // CV es la app y lo demas son solo views
-    @StateObject var workout = Workout()
+    //@StateObject var workout = Workout()
     
     var body: some View {
         VStack {
             NavigationView{
                 if viewModel.userCreated{
                     VStack{
-                        OverviewView(workoutModel: workout)
+                        HomeView()
                         /*Button(action: {
                             viewModel.signOut()
                         }, label: {
@@ -36,7 +36,7 @@ struct ContentView: View {
                         })*/
                     }
                 }else{
-                    SignInView(workout: workout)
+                    SignInView()
                 }
             }
         }

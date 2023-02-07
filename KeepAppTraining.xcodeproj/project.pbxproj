@@ -10,7 +10,7 @@
 		C30433A42982958000088065 /* AppViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C30433A32982958000088065 /* AppViewModel.swift */; };
 		C30433A6298880F700088065 /* Exercise.swift in Sources */ = {isa = PBXBuildFile; fileRef = C30433A5298880F600088065 /* Exercise.swift */; };
 		C30433A82988840000088065 /* Workout.swift in Sources */ = {isa = PBXBuildFile; fileRef = C30433A72988840000088065 /* Workout.swift */; };
-		C37D01AE298AC72F0007991F /* OverviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C37D01AD298AC72F0007991F /* OverviewView.swift */; };
+		C37D01AE298AC72F0007991F /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C37D01AD298AC72F0007991F /* HomeView.swift */; };
 		C37D01B2298AD3B50007991F /* ExercisesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C37D01B1298AD3B50007991F /* ExercisesView.swift */; };
 		C37D01B4298AD9C10007991F /* SignInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C37D01B3298AD9C10007991F /* SignInView.swift */; };
 		C38796E82981D178007FFF50 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C38796E72981D178007FFF50 /* GoogleService-Info.plist */; };
@@ -25,6 +25,8 @@
 		C3B8212229818E8D00F8BFCA /* KeepAppTrainingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3B8212129818E8D00F8BFCA /* KeepAppTrainingTests.swift */; };
 		C3B8212C29818E8E00F8BFCA /* KeepAppTrainingUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3B8212B29818E8E00F8BFCA /* KeepAppTrainingUITests.swift */; };
 		C3B8212E29818E8E00F8BFCA /* KeepAppTrainingUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3B8212D29818E8E00F8BFCA /* KeepAppTrainingUITestsLaunchTests.swift */; };
+		C3FE33E9298EE8E600B6319B /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3FE33E8298EE8E600B6319B /* User.swift */; };
+		C3FE343029924C7C00B6319B /* WorkoutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3FE342F29924C7C00B6319B /* WorkoutView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -48,7 +50,7 @@
 		C30433A32982958000088065 /* AppViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppViewModel.swift; sourceTree = "<group>"; };
 		C30433A5298880F600088065 /* Exercise.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Exercise.swift; sourceTree = "<group>"; };
 		C30433A72988840000088065 /* Workout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Workout.swift; sourceTree = "<group>"; };
-		C37D01AD298AC72F0007991F /* OverviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverviewView.swift; sourceTree = "<group>"; };
+		C37D01AD298AC72F0007991F /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		C37D01B1298AD3B50007991F /* ExercisesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExercisesView.swift; sourceTree = "<group>"; };
 		C37D01B3298AD9C10007991F /* SignInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInView.swift; sourceTree = "<group>"; };
 		C38796E72981D178007FFF50 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -62,6 +64,8 @@
 		C3B8212729818E8E00F8BFCA /* KeepAppTrainingUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = KeepAppTrainingUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C3B8212B29818E8E00F8BFCA /* KeepAppTrainingUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeepAppTrainingUITests.swift; sourceTree = "<group>"; };
 		C3B8212D29818E8E00F8BFCA /* KeepAppTrainingUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeepAppTrainingUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		C3FE33E8298EE8E600B6319B /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		C3FE342F29924C7C00B6319B /* WorkoutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -116,12 +120,13 @@
 		C3B8210F29818E8500F8BFCA /* KeepAppTraining */ = {
 			isa = PBXGroup;
 			children = (
+				C3FE342E29924C4400B6319B /* Views */,
 				C3FE33E7298E7F9900B6319B /* Classes */,
 				C37D01B1298AD3B50007991F /* ExercisesView.swift */,
 				C37D01B3298AD9C10007991F /* SignInView.swift */,
 				C3B8211029818E8500F8BFCA /* KeepAppTrainingApp.swift */,
 				C3B8211229818E8500F8BFCA /* ContentView.swift */,
-				C37D01AD298AC72F0007991F /* OverviewView.swift */,
+				C37D01AD298AC72F0007991F /* HomeView.swift */,
 				C38796E72981D178007FFF50 /* GoogleService-Info.plist */,
 				C3B8211429818E8C00F8BFCA /* Assets.xcassets */,
 				C3B8211629818E8C00F8BFCA /* Preview Content */,
@@ -160,8 +165,17 @@
 			children = (
 				C30433A72988840000088065 /* Workout.swift */,
 				C30433A5298880F600088065 /* Exercise.swift */,
+				C3FE33E8298EE8E600B6319B /* User.swift */,
 			);
 			path = Classes;
+			sourceTree = "<group>";
+		};
+		C3FE342E29924C4400B6319B /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				C3FE342F29924C7C00B6319B /* WorkoutView.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -305,10 +319,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				C3B8211329818E8500F8BFCA /* ContentView.swift in Sources */,
-				C37D01AE298AC72F0007991F /* OverviewView.swift in Sources */,
+				C37D01AE298AC72F0007991F /* HomeView.swift in Sources */,
 				C30433A6298880F700088065 /* Exercise.swift in Sources */,
 				C3B8211129818E8500F8BFCA /* KeepAppTrainingApp.swift in Sources */,
+				C3FE343029924C7C00B6319B /* WorkoutView.swift in Sources */,
 				C30433A82988840000088065 /* Workout.swift in Sources */,
+				C3FE33E9298EE8E600B6319B /* User.swift in Sources */,
 				C37D01B2298AD3B50007991F /* ExercisesView.swift in Sources */,
 				C37D01B4298AD9C10007991F /* SignInView.swift in Sources */,
 				C30433A42982958000088065 /* AppViewModel.swift in Sources */,

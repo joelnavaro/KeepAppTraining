@@ -5,15 +5,19 @@
 //  Created by Joel Pena Navarro on 2023-01-30.
 //
 
-import Foundation
 import SwiftUI
 
 struct Exercise: Identifiable{
     var id = UUID()
-    
     var name : String
     var muscleGroup : String
-    //var chestList : [Exercise]
+    
+    //int for sets
+    var sets : Int
+    //int for repetitions
+    var repetitions : Int
+    // int for wheight, ouede ser nil, asi vas por libre
+    // weight : Double
     
     
     

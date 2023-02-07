@@ -18,7 +18,8 @@ struct ExercisesView: View{
     //@State var chest = [Exercise]()
     var buttonsMenu = ["Arms", "Chest", "Back", "Legs"] //names on buttons
     //@StateObject var workoutModel = Workout() //un workout
-    @State var exerciseList : [Exercise] = [] //lista para los botones
+    //MARK: list for the buttonsview
+    @State var exerciseList : [Exercise] = []
     @State var nextPage = false
     
     var body: some View{
@@ -28,7 +29,7 @@ struct ExercisesView: View{
                 .ignoresSafeArea()
             ScrollView{
                 VStack{
-                    HStack{
+                    HStack(){
                         Spacer(minLength: 2)
                         ForEach(buttonsMenu, id: \.self){ item in
                             Button(action: {
@@ -89,12 +90,12 @@ struct ExercisesView: View{
             }
         }*/
         //using a test workout created in appviewmodel
-        for exercise in model.testWorkout.exercisesList{
+        for exercise in model.standardExerciseList{
             if exercise.muscleGroup == group{
                 list.append(exercise)
             }
         }
-        print("exercises: \(model.testWorkout.exercisesList.count)")
+        print("exercises: \(model.standardExerciseList.count)")
         print(exerciseList.count)
         print(list.count)
         return list

@@ -15,8 +15,6 @@ struct SignInView: View {
     @State var email = ""
     @State var password = ""
     @EnvironmentObject var viewModel: AppViewModel
-    //cause the testing mode needs an overview(), which needs a workout
-    @StateObject var workout = Workout()
     
     var body: some View {
         ZStack {
@@ -52,7 +50,7 @@ struct SignInView: View {
                             .cornerRadius(8)
                     })
                     NavigationLink("Create Account", destination: SignUpView())
-                    NavigationLink("Try without account", destination: OverviewView(workoutModel: workout)).onTapGesture {
+                    NavigationLink("Try without account", destination: HomeView()).onTapGesture {
                         /*if Auth.auth().currentUser == nil {
                             viewModel.signedIn = true
                             viewModel.signInAnonymously()
@@ -122,5 +120,6 @@ struct SignInView_Previews: PreviewProvider {
     
     static var previews: some View {
         SignInView()
+            .environmentObject(AppViewModel())
     }
 }

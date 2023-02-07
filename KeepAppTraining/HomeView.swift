@@ -11,9 +11,10 @@ import FirebaseAuth
 import FirebaseCore
 import FirebaseFirestore
 //podria llamarse MainView
-struct OverviewView: View {
+struct HomeView: View {
     @EnvironmentObject var viewModel: AppViewModel
-    @StateObject var workoutModel = Workout()
+    //workout model to show in HomeView
+    //var workoutModel = [Workout]()
     @State var nextPage = false
     
     var body: some View{
@@ -49,12 +50,26 @@ struct OverviewView: View {
                     .padding(8)
                     //.border(Color.blue, width: 3)
                     Spacer()
+                    //MARK: list with workoutlist from AppViewModel
                     VStack{
                         List(){
-                            ForEach(workoutModel.workoutsList){ workout in
-                                if let name = workout.name{
-                                    Text(name)
-                                }
+                            ForEach(viewModel.standardWorkoutsList){ entry in
+                                NavigationLink(destination: WorkoutView(entryName: entry.name, entryExerList: entry.exercisesList), label: {
+                                    if let name = entry.name{ Text(name) }
+                                })
+                            }
+                        }
+                    }
+                    .padding(5)
+                    .cornerRadius(25)
+                    //MARK: list with workoutlist from user
+                    VStack{
+                        List(){
+                            ForEach(viewModel.user.workoutList){ entry in
+                                NavigationLink(destination: WorkoutView(entryName: entry.name, entryExerList: entry.exercisesList), label: {
+                                    if let name = entry.name{ Text(name) }
+                                    
+                                })
                             }
                         }
                     }
@@ -92,9 +107,8 @@ struct OverviewView: View {
                 }
             }
         }
-        .navigationTitle("Overview")
         .onAppear(){
-            print("exercise list: \(workoutModel.exercisesList.count)")
+            //print("exercise list: \(workoutModel.exercisesList.count)")
             if Auth.auth().currentUser == nil {
                 //viewModel.signedIn = true
                 viewModel.signInAnonymously()
@@ -109,6 +123,7 @@ struct OverviewView_Previews: PreviewProvider {
     @StateObject var model : Workout
     
     static var previews: some View {
-        OverviewView()
+        HomeView()
+            .environmentObject(AppViewModel())
     }
 }
