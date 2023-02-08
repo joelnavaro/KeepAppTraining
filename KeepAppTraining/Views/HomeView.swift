@@ -20,8 +20,7 @@ struct HomeView: View {
     var body: some View{
         NavigationView{
             ZStack{
-                Color(red: 175/256, green: 230/256, blue: 245/256)
-                    .ignoresSafeArea()
+                Color.inApp.ignoresSafeArea()
                 VStack(spacing: 8){
                     HStack{
                         Image(systemName: "person.fill")
@@ -82,21 +81,12 @@ struct HomeView: View {
                     .cornerRadius(25)
                     HStack{
                         NavigationLink(destination: ExercisesView(), label: {
-                            Text("Exercises")
-                                .foregroundColor(Color.white)
-                                .frame(width: 180, height: 50)
-                                .background(Color.blue)
-                                .cornerRadius(8)
-                        })
-                        .padding(2)
+                            ButtonView(item: "Exercises", w: 180, h: 50)
+                        }).padding(2)
                         Button(action: {
                             
                         }, label: {
-                            Text("Create Workout")
-                                .foregroundColor(Color.white)
-                                .frame(width: 180, height: 50)
-                                .background(Color.blue)
-                                .cornerRadius(8)
+                            ButtonView(item: "Create Workout", w: 180, h: 50)
                         }).padding(2)
                     }
                     .cornerRadius(10)

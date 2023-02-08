@@ -25,8 +25,7 @@ struct ExercisesView: View{
     var body: some View{
         //Text(exercise.name)
         ZStack{
-            Color(red: 175/256, green: 230/256, blue: 245/256)
-                .ignoresSafeArea()
+            Color.inApp2.ignoresSafeArea()
             ScrollView{
                 VStack{
                     HStack(){
@@ -35,7 +34,7 @@ struct ExercisesView: View{
                         ForEach(buttonsMenu, id: \.self){ item in
                             Button(action: {
                                 exerciseList = showStandardList(from: viewModel, group: item)
-                            }){ ButtonView(item: item)}
+                            }){ ButtonView(item: item, w: 80, h: 50)}
                         }
                         .padding(3)
                         Spacer(minLength: 2)
@@ -62,9 +61,8 @@ struct ExercisesView: View{
                     Button(action: {
                         nextPage = true
                     }, label: {
-                        Text("Add Exercise")
-                            .foregroundColor(Color.white)
-                            .frame(width: 200, height: 50)
+                        ButtonView(item: "Add Exercise", w: 200, h: 50 )
+                            //.foregroundColor(Color.white)
                             .background(Color.blue)
                             .cornerRadius(8)
                     })//Button add exercise
@@ -173,35 +171,24 @@ struct AddExercise: View{
 }
 struct ButtonView: View {
     var item: String
-    var width1: Int?
-    var width2: Int?
+    var w: CGFloat
+    var h: CGFloat
+    var w1: CGFloat = 1.33
+    var h1: CGFloat = 1.43
     
     var body: some View {
         ZStack{
-            Color(red: 72/256, green: 181/256, blue: 216/256) //back
-                .frame(width: 80, height: 50)
+            Color.appButtons //back 80 50
+                .frame(width: w, height: h)
                 .cornerRadius(10)
-                .shadow(color: Color.gray, radius: 5, x: 5)
+                .shadow(color: Color.black, radius: 3, x: 5)
             Color(red: 255/256, green: 255/256, blue: 255/256) //front
                 .blendMode(.colorBurn)
-                .frame(width: 60, height: 35)
+                .frame(width: w/w1, height: h/h1) //60 35
                 .background(Color(red: 255/256, green: 255/256, blue: 255/256))
                 //.rotationEffect(.degrees(45))
                 .cornerRadius(20)
             Text("\(item)")
-            
-            //list colors
-            /*Color(red: 242/256, green: 242/256, blue: 247/256)
-                .frame(width: 100, height: 50)
-                .background((Color(red: 242/256, green: 242/256, blue: 247/256)).opacity(2))
-                .cornerRadius(10)
-                .shadow(color: Color.gray, radius: 5, x: 5)
-            
-            Color(red: 255/256, green: 255/256, blue: 255/256)
-                .blendMode(.colorBurn)
-                .frame(width: 70, height: 35)
-                .background(Color(red: 255/256, green: 255/256, blue: 255/256))
-                .cornerRadius(20)*/
         }
     }
 }

@@ -18,8 +18,7 @@ struct SignInView: View {
     
     var body: some View {
         ZStack {
-            Color(red: 84/256, green: 202/256, blue: 226/256)
-                .ignoresSafeArea()
+            Color.appBackground.ignoresSafeArea()
             VStack(){
                 Spacer()
                 Image(systemName:"dumbbell.fill")
@@ -75,8 +74,7 @@ struct SignUpView: View {
     
     var body: some View {
         ZStack {
-            Color(red: 202/256, green: 242/256, blue: 249/256)
-                .ignoresSafeArea()
+            Color.appBackground2.ignoresSafeArea()
             VStack{
                 Spacer()
                 Image(systemName:"dumbbell.fill")

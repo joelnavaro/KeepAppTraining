@@ -29,6 +29,7 @@
 		C3FE343029924C7C00B6319B /* WorkoutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3FE342F29924C7C00B6319B /* WorkoutView.swift */; };
 		C3FE34322992E6E800B6319B /* AddExerciseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3FE34312992E6E800B6319B /* AddExerciseView.swift */; };
 		C3FE34342992E70400B6319B /* AddWorkoutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3FE34332992E70400B6319B /* AddWorkoutView.swift */; };
+		C3FE3438299434C800B6319B /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3FE3437299434C800B6319B /* Extensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -70,6 +71,7 @@
 		C3FE342F29924C7C00B6319B /* WorkoutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutView.swift; sourceTree = "<group>"; };
 		C3FE34312992E6E800B6319B /* AddExerciseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddExerciseView.swift; sourceTree = "<group>"; };
 		C3FE34332992E70400B6319B /* AddWorkoutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddWorkoutView.swift; sourceTree = "<group>"; };
+		C3FE3437299434C800B6319B /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -124,9 +126,10 @@
 		C3B8210F29818E8500F8BFCA /* KeepAppTraining */ = {
 			isa = PBXGroup;
 			children = (
+				C3B8211029818E8500F8BFCA /* KeepAppTrainingApp.swift */,
 				C3FE342E29924C4400B6319B /* Views */,
 				C3FE33E7298E7F9900B6319B /* Classes */,
-				C3B8211029818E8500F8BFCA /* KeepAppTrainingApp.swift */,
+				C3FE34362994348400B6319B /* Details */,
 				C38796E72981D178007FFF50 /* GoogleService-Info.plist */,
 				C3B8211429818E8C00F8BFCA /* Assets.xcassets */,
 				C3B8211629818E8C00F8BFCA /* Preview Content */,
@@ -182,6 +185,14 @@
 				C3FE34332992E70400B6319B /* AddWorkoutView.swift */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		C3FE34362994348400B6319B /* Details */ = {
+			isa = PBXGroup;
+			children = (
+				C3FE3437299434C800B6319B /* Extensions.swift */,
+			);
+			path = Details;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -332,6 +343,7 @@
 				C3FE343029924C7C00B6319B /* WorkoutView.swift in Sources */,
 				C30433A82988840000088065 /* Workout.swift in Sources */,
 				C3FE33E9298EE8E600B6319B /* User.swift in Sources */,
+				C3FE3438299434C800B6319B /* Extensions.swift in Sources */,
 				C37D01B2298AD3B50007991F /* ExercisesView.swift in Sources */,
 				C37D01B4298AD9C10007991F /* SignInView.swift in Sources */,
 				C3FE34342992E70400B6319B /* AddWorkoutView.swift in Sources */,
