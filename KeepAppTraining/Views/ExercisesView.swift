@@ -62,9 +62,6 @@ struct ExercisesView: View{
                         nextPage = true
                     }, label: {
                         ButtonView(item: "Add Exercise", w: 200, h: 50 )
-                            //.foregroundColor(Color.white)
-                            .background(Color.blue)
-                            .cornerRadius(8)
                     })//Button add exercise
                 }//Vstack
                 .frame(height: 750)
@@ -78,7 +75,7 @@ struct ExercisesView: View{
             exerciseList = showUserList(from: viewModel, group: buttonsMenu[0])}
         .sheet(isPresented: $nextPage){ //en este content se puede agregar un onDismiss: para que pase algo al cerrar el sheet
             //change for AddExerciseView() when created
-            AddExercise()
+            AddExerciseView()
         }
         //navigationview
     }//body
@@ -128,35 +125,7 @@ struct CellView: View{
         
     }
 }
-/*struct ExerciseButton: View {
-    //nombre para el boton
-    var name: String
-    //array bool para los grupos musculares
-    @State var menuBool = [Bool]()
-    //array para los ejercicios de cara grupo
-    @State var arrayModel: [Exercise]
-    //@StateObject var workoutModel = Workout()
-    
-    var body: some View{
-        Button(action: {
-            //agrega ejercicios al array model
-            exercisesMockData()
-        }, label: {
-            Text(name)
-                .foregroundColor(Color.white)
-                .frame(width: 200, height: 50)
-                .background(Color.blue)
-                .cornerRadius(8)
-        })
-    }
-    func exercisesMockData(){
-        arrayModel.append(Exercise(name: "Bench Press", muscleGroup: "Chest"))
-        arrayModel.append(Exercise(name: "Lower Bench Press", muscleGroup: "Chest"))
-    }
-    func menuBools(){
-        
-    }
-}*/
+
 struct AddExercise: View{
     var body: some View {
         VStack{
