@@ -27,6 +27,8 @@
 		C3B8212E29818E8E00F8BFCA /* KeepAppTrainingUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3B8212D29818E8E00F8BFCA /* KeepAppTrainingUITestsLaunchTests.swift */; };
 		C3FE33E9298EE8E600B6319B /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3FE33E8298EE8E600B6319B /* User.swift */; };
 		C3FE343029924C7C00B6319B /* WorkoutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3FE342F29924C7C00B6319B /* WorkoutView.swift */; };
+		C3FE34322992E6E800B6319B /* AddExerciseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3FE34312992E6E800B6319B /* AddExerciseView.swift */; };
+		C3FE34342992E70400B6319B /* AddWorkoutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3FE34332992E70400B6319B /* AddWorkoutView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -66,6 +68,8 @@
 		C3B8212D29818E8E00F8BFCA /* KeepAppTrainingUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeepAppTrainingUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		C3FE33E8298EE8E600B6319B /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		C3FE342F29924C7C00B6319B /* WorkoutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutView.swift; sourceTree = "<group>"; };
+		C3FE34312992E6E800B6319B /* AddExerciseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddExerciseView.swift; sourceTree = "<group>"; };
+		C3FE34332992E70400B6319B /* AddWorkoutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddWorkoutView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -122,11 +126,7 @@
 			children = (
 				C3FE342E29924C4400B6319B /* Views */,
 				C3FE33E7298E7F9900B6319B /* Classes */,
-				C37D01B1298AD3B50007991F /* ExercisesView.swift */,
-				C37D01B3298AD9C10007991F /* SignInView.swift */,
 				C3B8211029818E8500F8BFCA /* KeepAppTrainingApp.swift */,
-				C3B8211229818E8500F8BFCA /* ContentView.swift */,
-				C37D01AD298AC72F0007991F /* HomeView.swift */,
 				C38796E72981D178007FFF50 /* GoogleService-Info.plist */,
 				C3B8211429818E8C00F8BFCA /* Assets.xcassets */,
 				C3B8211629818E8C00F8BFCA /* Preview Content */,
@@ -174,6 +174,12 @@
 			isa = PBXGroup;
 			children = (
 				C3FE342F29924C7C00B6319B /* WorkoutView.swift */,
+				C37D01B1298AD3B50007991F /* ExercisesView.swift */,
+				C37D01B3298AD9C10007991F /* SignInView.swift */,
+				C3B8211229818E8500F8BFCA /* ContentView.swift */,
+				C37D01AD298AC72F0007991F /* HomeView.swift */,
+				C3FE34312992E6E800B6319B /* AddExerciseView.swift */,
+				C3FE34332992E70400B6319B /* AddWorkoutView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -321,12 +327,14 @@
 				C3B8211329818E8500F8BFCA /* ContentView.swift in Sources */,
 				C37D01AE298AC72F0007991F /* HomeView.swift in Sources */,
 				C30433A6298880F700088065 /* Exercise.swift in Sources */,
+				C3FE34322992E6E800B6319B /* AddExerciseView.swift in Sources */,
 				C3B8211129818E8500F8BFCA /* KeepAppTrainingApp.swift in Sources */,
 				C3FE343029924C7C00B6319B /* WorkoutView.swift in Sources */,
 				C30433A82988840000088065 /* Workout.swift in Sources */,
 				C3FE33E9298EE8E600B6319B /* User.swift in Sources */,
 				C37D01B2298AD3B50007991F /* ExercisesView.swift in Sources */,
 				C37D01B4298AD9C10007991F /* SignInView.swift in Sources */,
+				C3FE34342992E70400B6319B /* AddWorkoutView.swift in Sources */,
 				C30433A42982958000088065 /* AppViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

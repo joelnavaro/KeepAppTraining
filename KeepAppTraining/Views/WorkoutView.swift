@@ -10,13 +10,11 @@ import SwiftUI
 struct WorkoutView: View {
     @EnvironmentObject var viewModel : AppViewModel
     @State var restTime = ""
-    //i need a workout entry from the list, needs to be nil from start
-    // workoutEntry : Workout?
     var entryName: String
     var entryExerList: [Exercise]
     
     var body: some View {
-        //name of the workout as a title
+        
         //a field to set rest time betwen exercises
         //how a row for the exercises is shown (showing name of the exercise, the rest time chosen, a delete option, a countdown for the restime)
         VStack{
@@ -24,7 +22,11 @@ struct WorkoutView: View {
             HStack{
                 Spacer(minLength: 25)
                 Text("Rest time: ")
-                TextField("Rest inbetwen sets", text: $restTime)
+                Button(action: {
+                    
+                }, label: {
+                    TextField("Rest inbetwen sets", text: $restTime)
+                })
             }
             //MARK: row for a set
             List() {

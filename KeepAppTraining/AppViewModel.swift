@@ -105,4 +105,16 @@ class AppViewModel: ObservableObject{
         try? auth.signOut()  //should i catch error for this??
         self.signedIn = false
     }
+    func deleteStandardExercise(indexSet: IndexSet){
+        standardExerciseList.remove(atOffsets: indexSet)
+    }
+    func deleteUserExercise(indexSet: IndexSet){
+        user.exerciseList.remove(atOffsets: indexSet)
+    }
+    func deleteUserWorkout(at indexSet: IndexSet){
+        user.workoutList.remove(atOffsets: indexSet)
+    }
+    func deleteStandardWorkout(at indexSet: IndexSet){
+        standardWorkoutsList.remove(atOffsets: indexSet)
+    }
 }

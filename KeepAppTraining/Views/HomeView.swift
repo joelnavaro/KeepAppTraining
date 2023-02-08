@@ -50,26 +50,31 @@ struct HomeView: View {
                     .padding(8)
                     //.border(Color.blue, width: 3)
                     Spacer()
-                    //MARK: list with workoutlist from AppViewModel
+    //MARK: list with workoutlist from AppViewModel
                     VStack{
                         List(){
                             ForEach(viewModel.standardWorkoutsList){ entry in
                                 NavigationLink(destination: WorkoutView(entryName: entry.name, entryExerList: entry.exercisesList), label: {
                                     if let name = entry.name{ Text(name) }
                                 })
+                            }.onDelete(){ indexSet in
+                                viewModel.deleteStandardWorkout(at: indexSet)
                             }
                         }
                     }
                     .padding(5)
                     .cornerRadius(25)
-                    //MARK: list with workoutlist from user
+    //MARK: list with workoutlist from user
                     VStack{
                         List(){
                             ForEach(viewModel.user.workoutList){ entry in
                                 NavigationLink(destination: WorkoutView(entryName: entry.name, entryExerList: entry.exercisesList), label: {
-                                    if let name = entry.name{ Text(name) }
-                                    
+                                    if let name = entry.name{
+                                        Text(name)
+                                    }
                                 })
+                            }.onDelete(){ indexSet in
+                                viewModel.deleteUserWorkout(at: indexSet)
                             }
                         }
                     }

@@ -31,24 +31,28 @@ struct ExercisesView: View{
                 VStack{
                     HStack(){
                         Spacer(minLength: 2)
+    //MARK: SHOWS BUTTONS FOR THE EXERCISE MENU
                         ForEach(buttonsMenu, id: \.self){ item in
                             Button(action: {
-                                exerciseList = showList(from: viewModel, group: item)
+                                exerciseList = showStandardList(from: viewModel, group: item)
                             }){ ButtonView(item: item)}
                         }
                         .padding(3)
                         Spacer(minLength: 2)
                     }//Hstack
+    //MARK: shows user list
                     VStack{
                         Divider().padding(8)//linea divisoria
                         Text("Create a customized view for every cell")
-                        Text("Code the onDelete")
                         Divider().padding(8)//linea divisoria
+    //MARK: CHANGE FOR SHOWUSERLIST() WHEN APP READY TO SHOW
                         List(){
                             ForEach(exerciseList){ exercise in
                                 NavigationLink(destination: CellView(name: exercise.name, muscleGroup: exercise.muscleGroup), label: {Text(exercise.name)})
                             }
-                            //.onDelete(perform: <#T##Optional<(IndexSet) -> Void>##Optional<(IndexSet) -> Void>##(IndexSet) -> Void#>)
+                            .onDelete(){ indexSet in
+                                viewModel.deleteStandardExercise(indexSet: indexSet)
+                            }
                         }
                         .cornerRadius(25)
                         .padding(8)
@@ -73,13 +77,26 @@ struct ExercisesView: View{
             //.background(Color(.init(white: 2, alpha: 0.05)))
         }//zstack
         .onAppear(){
-            exerciseList = showList(from: viewModel, group: buttonsMenu[0])}
+            exerciseList = showUserList(from: viewModel, group: buttonsMenu[0])}
         .sheet(isPresented: $nextPage){ //en este content se puede agregar un onDismiss: para que pase algo al cerrar el sheet
+            //change for AddExerciseView() when created
             AddExercise()
         }
         //navigationview
     }//body
-    func showList(from model: AppViewModel, group: String)->[Exercise]{
+    //MARK: shows user list for mail user
+    func showUserList(from model: AppViewModel, group: String)->[Exercise]{
+        var list = [Exercise]()
+        
+        for exercise in model.user.exerciseList{
+            if exercise.muscleGroup == group{
+                list.append(exercise)
+            }
+        }
+        return list
+    }
+    //MARK: shows standard list for annon user
+    func showStandardList(from model: AppViewModel, group: String)->[Exercise]{
         var list = [Exercise]()
         //for a list of workouts
         /*for workout in a.workoutList{

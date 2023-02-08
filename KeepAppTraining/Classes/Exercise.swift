@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct Exercise: Identifiable{
+struct Exercise: Identifiable, Equatable{
     var id = UUID()
     var name : String
     var muscleGroup : String
