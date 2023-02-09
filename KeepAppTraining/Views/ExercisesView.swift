@@ -16,11 +16,11 @@ import FirebaseFirestore
 struct ExercisesView: View{
     @EnvironmentObject var viewModel: AppViewModel
     //@State var chest = [Exercise]()
-    var buttonsMenu = ["Arms", "Chest", "Back", "Legs"] //names on buttons
+    var buttonsMenu = ["arms", "chest", "back", "legs"] //names on buttons
     //@StateObject var workoutModel = Workout() //un workout
-    //MARK: list for the buttonsview
+//MARK: list of exercises created onAppear
     @State var exerciseList : [Exercise] = []
-    @State var nextPage = false
+    @State var addExerSheet = false
     
     var body: some View{
         //Text(exercise.name)
@@ -28,23 +28,25 @@ struct ExercisesView: View{
             Color.inApp2.ignoresSafeArea()
             ScrollView{
                 VStack{
-                    HStack(){
-                        Spacer(minLength: 2)
-    //MARK: SHOWS BUTTONS FOR THE EXERCISE MENU
-                        ForEach(buttonsMenu, id: \.self){ item in
-                            Button(action: {
-                                exerciseList = showStandardList(from: viewModel, group: item)
-                            }){ ButtonView(item: item, w: 80, h: 50)}
+                    //MARK: SHOWS BUTTONS FOR THE EXERCISE MENU
+                    ScrollView(.horizontal){
+                        HStack(){
+                            //Spacer(minLength: 2)
+                            ForEach(buttonsMenu, id: \.self){ item in
+                                Button(action: {
+                                    exerciseList = showUserList(from: viewModel, group: item)
+                                }){ ButtonView(item: item.capitalized, w: 80, h: 50)}
+                            }
+                            .padding(3)
+                            //Spacer(minLength: 2)
                         }
-                        .padding(3)
-                        Spacer(minLength: 2)
                     }//Hstack
-    //MARK: shows user list
+//MARK: shows user list
                     VStack{
                         Divider().padding(8)//linea divisoria
                         Text("Create a customized view for every cell")
                         Divider().padding(8)//linea divisoria
-    //MARK: CHANGE FOR SHOWUSERLIST() WHEN APP READY TO SHOW
+//MARK: PUT SHOWUSERLIST() instead WHEN APP READY TO SHOW
                         List(){
                             ForEach(exerciseList){ exercise in
                                 NavigationLink(destination: CellView(name: exercise.name, muscleGroup: exercise.muscleGroup), label: {Text(exercise.name)})
@@ -57,29 +59,30 @@ struct ExercisesView: View{
                         .padding(8)
                     }
                     .padding(2)
-                    //needs a sheet to add exercises to a muscle group
+                    
                     Button(action: {
-                        nextPage = true
+                        addExerSheet.toggle()
                     }, label: {
                         ButtonView(item: "Add Exercise", w: 200, h: 50 )
-                    })//Button add exercise
+                    })
+                    
                 }//Vstack
-                .frame(height: 750)
+                .frame(height: 700)
                 .padding(2)
                 .navigationTitle("Exercises")
             }//scrollv
             .padding(2)
             //.background(Color(.init(white: 2, alpha: 0.05)))
         }//zstack
-        .onAppear(){
-            exerciseList = showUserList(from: viewModel, group: buttonsMenu[0])}
-        .sheet(isPresented: $nextPage){ //en este content se puede agregar un onDismiss: para que pase algo al cerrar el sheet
-            //change for AddExerciseView() when created
-            AddExerciseView()
+        .onAppear(){ //when this view starts, sorts a list and show
+            exerciseList = showUserList(from: viewModel, group: buttonsMenu[0])
+            print("\(viewModel.user.exerciseList.count)")
         }
-        //navigationview
+        .sheet(isPresented: $addExerSheet){ //en este content se puede agregar un onDismiss: para que pase algo al cerrar el sheet
+            AddExerciseView(exerciseList: exerciseList)
+        }
     }//body
-    //MARK: shows user list for mail user
+//MARK: shows user list for mail user
     func showUserList(from model: AppViewModel, group: String)->[Exercise]{
         var list = [Exercise]()
         
@@ -90,17 +93,9 @@ struct ExercisesView: View{
         }
         return list
     }
-    //MARK: shows standard list for annon user
+//MARK: shows standard list for annon user
     func showStandardList(from model: AppViewModel, group: String)->[Exercise]{
         var list = [Exercise]()
-        //for a list of workouts
-        /*for workout in a.workoutList{
-            for exercise in workout.exercisesList{
-                if exercise.muscleGroup == group{
-                    list.append(exercise)
-                }
-            }
-        }*/
         //using a test workout created in appviewmodel
         for exercise in model.standardExerciseList{
             if exercise.muscleGroup == group{
