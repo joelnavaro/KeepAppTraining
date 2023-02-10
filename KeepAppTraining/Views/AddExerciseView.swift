@@ -34,7 +34,7 @@ struct AddExerciseView: View {
                         .padding(.bottom, 50)
                     Text("Add exercise (Title)")
                 }
-    //MARK: Name and group
+                //MARK: Name and group
                 HStack{
                     ZStack{
                         Color.blankSpace
@@ -58,10 +58,11 @@ struct AddExerciseView: View {
                             .shadow(color: Color.black, radius: 3, x: 2)
                         Text("Muscle Group: ")
                     }
+                    //MARK: change the textview for a dropdown menu
                     TextField("Muscle Group...", text: $mGroup).background(Color.white)
                 }
                 .padding(10)
-    //MARK: Sets and Reps
+                //MARK: Sets and Reps
                 HStack{
                     ZStack{
                         Color.blankSpace
@@ -85,7 +86,7 @@ struct AddExerciseView: View {
                     TextField("Repetitions...", text: $reps).background(Color.white)
                 }
                 .padding(15)
-    //MARK: Description
+                //MARK: Description
                 ZStack {
                     Color.blankSpace
                         .frame(width: 150, height: 30)
@@ -108,12 +109,8 @@ struct AddExerciseView: View {
                     Text("Save")
                 })
                 Spacer()
-                /*Color(red: 255/256, green: 255/256, blue: 255/256) //front
-                 .blendMode(.colorBurn)
-                 .frame(width: 60, height: 35)
-                 .background(Color(red: 255/256, green: 255/256, blue: 255/256))
-                 //.rotationEffect(.degrees(45))
-                 .cornerRadius(20)*/
+                //.blendMode(.colorBurn)
+                //.rotationEffect(.degrees(45))
             }
         }
         .autocorrectionDisabled(true)
@@ -130,14 +127,76 @@ struct AddExerciseView: View {
         if let newSet = newSet, let newReps = newReps {
             let entry = Exercise(name: name, muscleGroup: mGroup, sets: newSet, repetitions: newReps, description: description)
             viewModel.user.exerciseList.append(entry)
+            viewModel.standardExerciseList.append(entry)
         }
         print("\(viewModel.user.exerciseList.count)")
     }
     
 }//addExerciseView
-
-/*struct AddExerciseView_Previews: PreviewProvider {
-    static var previews: some View {
-        AddExerciseView()
+struct ShowExerciseView: View {
+    //var test : String?
+    //@State var test2 = ""
+    
+    var body: some View {
+        ZStack{
+            Color.inApp2.ignoresSafeArea()
+            VStack{
+                HStack{
+                    ZStack{
+                        Color.blankSpace
+                            .frame(width: 140, height: 40)
+                            .clipShape(Rectangle())
+                            .overlay(Rectangle().stroke(Color.blue))
+                            .cornerRadius(10)
+                            .shadow(color: Color.black, radius: 3, x: 2)
+                        Text("Exercise Title")
+                    }
+                    ZStack{
+                        Color.blankSpace
+                            .frame(width: 140, height: 40)
+                            .clipShape(Rectangle())
+                            .overlay(Rectangle().stroke(Color.blue))
+                            .cornerRadius(10)
+                            .shadow(color: Color.black, radius: 3, x: 2)
+                        Text("Targeted Group")
+                    }
+                }
+                HStack{
+                    ZStack{
+                        Color.blankSpace
+                            .frame(width: 150, height: 40)
+                            .clipShape(Rectangle())
+                            .overlay(Rectangle().stroke(Color.blue))
+                            .cornerRadius(10)
+                            .shadow(color: Color.black, radius: 3, x: 2)
+                        Text("Sets")
+                    }
+                    ZStack{
+                        Color.blankSpace
+                            .frame(width: 150, height: 40)
+                            .clipShape(Rectangle())
+                            .overlay(Rectangle().stroke(Color.blue))
+                            .cornerRadius(10)
+                            .shadow(color: Color.black, radius: 3, x: 2)
+                        Text("Reps")
+                    }
+                }
+                ZStack{
+                    Color.blankSpace
+                        .frame(width: 350, height: 180)
+                        .clipShape(Rectangle())//hace el frame circular
+                        .overlay(Rectangle().stroke(Color.blue, lineWidth: 2))
+                        .cornerRadius(10)
+                        .shadow(color: Color.black, radius: 3, x: 2)
+                    Text("Description")
+                }
+            }
+        }
     }
-}*/
+}
+
+struct AddExerciseView_Previews: PreviewProvider {
+    static var previews: some View {
+        ShowExerciseView()
+    }
+}

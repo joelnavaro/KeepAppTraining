@@ -19,6 +19,8 @@ class User: ObservableObject{
     //un usuario guarda sus propios ejercicios, pero en la app o en db?
     //en ejercicios mostrarias la lista de ejercicios del usuario
     //@Published var exerciseList = [Exercise]()
+    
+    /*
     init(){
         exerciseList.append(Exercise(name: "Cable Triceps Pushdown", muscleGroup: "arms", sets: 8,repetitions: 8))
         exerciseList.append(Exercise(name: "Biceps curl", muscleGroup: "arms", sets: 8,repetitions: 8))
@@ -28,7 +30,7 @@ class User: ObservableObject{
         exerciseList.append(Exercise(name: "Lat Pull-Down", muscleGroup: "back", sets: 4,repetitions: 6))
         exerciseList.append(Exercise(name: "Back Squat", muscleGroup: "legs", sets: 4,repetitions: 8))
         exerciseList.append(Exercise(name: "Front Squat", muscleGroup: "legs", sets: 4,repetitions: 8))
-    }
+    }*/
     
     
     

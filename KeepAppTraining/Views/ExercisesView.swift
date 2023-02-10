@@ -31,24 +31,36 @@ struct ExercisesView: View{
                     //MARK: SHOWS BUTTONS FOR THE EXERCISE MENU
                     ScrollView(.horizontal){
                         HStack(){
-                            //Spacer(minLength: 2)
                             ForEach(buttonsMenu, id: \.self){ item in
                                 Button(action: {
-                                    exerciseList = showUserList(from: viewModel, group: item)
+                                    exerciseList = showStandardList(from: viewModel, group: item)
                                 }){ ButtonView(item: item.capitalized, w: 80, h: 50)}
                             }
                             .padding(3)
-                            //Spacer(minLength: 2)
                         }
-                    }//Hstack
+                    }//ButtonsScrollView
 //MARK: shows user list
                     VStack{
                         Divider().padding(8)//linea divisoria
-                        Text("Create a customized view for every cell")
+                        Text("Filtered Lista")
                         Divider().padding(8)//linea divisoria
 //MARK: PUT SHOWUSERLIST() instead WHEN APP READY TO SHOW
+    //-----------------------------------------------------------------------
                         List(){
                             ForEach(exerciseList){ exercise in
+                                NavigationLink(destination: ShowExerciseView(), label: {Text(exercise.name)})
+                                /*NavigationLink(destination: CellView(name: exercise.name, muscleGroup: exercise.muscleGroup), label: {Text(exercise.name)})*/
+                            }
+                            .onDelete(){ indexSet in
+                                exerciseList.remove(atOffsets: indexSet)
+                                //viewModel.deleteStandardExercise(indexSet: indexSet)
+                            }
+                        }
+                        .cornerRadius(25)
+                        .padding(8)
+    //-----------------------------------------------------------------------
+                        List(){
+                            ForEach(viewModel.standardExerciseList){ exercise in
                                 NavigationLink(destination: CellView(name: exercise.name, muscleGroup: exercise.muscleGroup), label: {Text(exercise.name)})
                             }
                             .onDelete(){ indexSet in
@@ -57,6 +69,10 @@ struct ExercisesView: View{
                         }
                         .cornerRadius(25)
                         .padding(8)
+    //-----------------------------------------------------------------------
+                        Text("User's Lista")
+                        
+                        
                     }
                     .padding(2)
                     
@@ -67,7 +83,7 @@ struct ExercisesView: View{
                     })
                     
                 }//Vstack
-                .frame(height: 700)
+                .frame(height: 800)
                 .padding(2)
                 .navigationTitle("Exercises")
             }//scrollv
@@ -75,7 +91,7 @@ struct ExercisesView: View{
             //.background(Color(.init(white: 2, alpha: 0.05)))
         }//zstack
         .onAppear(){ //when this view starts, sorts a list and show
-            exerciseList = showUserList(from: viewModel, group: buttonsMenu[0])
+           //exerciseList = showUserList(from: viewModel, group: buttonsMenu[0])
             print("\(viewModel.user.exerciseList.count)")
         }
         .sheet(isPresented: $addExerSheet){ //en este content se puede agregar un onDismiss: para que pase algo al cerrar el sheet
