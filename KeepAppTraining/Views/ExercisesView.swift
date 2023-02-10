@@ -48,7 +48,7 @@ struct ExercisesView: View{
     //-----------------------------------------------------------------------
                         List(){
                             ForEach(exerciseList){ exercise in
-                                NavigationLink(destination: ShowExerciseView(), label: {Text(exercise.name)})
+                                NavigationLink(destination: ShowExerciseView(exercise: exercise), label: {Text(exercise.name)})
                                 /*NavigationLink(destination: CellView(name: exercise.name, muscleGroup: exercise.muscleGroup), label: {Text(exercise.name)})*/
                             }
                             .onDelete(){ indexSet in
@@ -61,7 +61,8 @@ struct ExercisesView: View{
     //-----------------------------------------------------------------------
                         List(){
                             ForEach(viewModel.standardExerciseList){ exercise in
-                                NavigationLink(destination: CellView(name: exercise.name, muscleGroup: exercise.muscleGroup), label: {Text(exercise.name)})
+                                NavigationLink(destination: ShowExerciseView(exercise: exercise), label: {Text(exercise.name)})
+                                /*NavigationLink(destination: CellView(name: exercise.name, muscleGroup: exercise.muscleGroup), label: {Text(exercise.name)})*/
                             }
                             .onDelete(){ indexSet in
                                 viewModel.deleteStandardExercise(indexSet: indexSet)

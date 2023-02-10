@@ -134,6 +134,7 @@ struct AddExerciseView: View {
     
 }//addExerciseView
 struct ShowExerciseView: View {
+    let exercise : Exercise
     //var test : String?
     //@State var test2 = ""
     
@@ -149,7 +150,7 @@ struct ShowExerciseView: View {
                             .overlay(Rectangle().stroke(Color.blue))
                             .cornerRadius(10)
                             .shadow(color: Color.black, radius: 3, x: 2)
-                        Text("Exercise Title")
+                        Text("\(exercise.name)")
                     }
                     ZStack{
                         Color.blankSpace
@@ -158,7 +159,7 @@ struct ShowExerciseView: View {
                             .overlay(Rectangle().stroke(Color.blue))
                             .cornerRadius(10)
                             .shadow(color: Color.black, radius: 3, x: 2)
-                        Text("Targeted Group")
+                        Text("\(exercise.muscleGroup)")
                     }
                 }
                 HStack{
@@ -169,7 +170,7 @@ struct ShowExerciseView: View {
                             .overlay(Rectangle().stroke(Color.blue))
                             .cornerRadius(10)
                             .shadow(color: Color.black, radius: 3, x: 2)
-                        Text("Sets")
+                        Text("\(exercise.sets)")
                     }
                     ZStack{
                         Color.blankSpace
@@ -178,7 +179,7 @@ struct ShowExerciseView: View {
                             .overlay(Rectangle().stroke(Color.blue))
                             .cornerRadius(10)
                             .shadow(color: Color.black, radius: 3, x: 2)
-                        Text("Reps")
+                        Text("\(exercise.repetitions)")
                     }
                 }
                 ZStack{
@@ -188,7 +189,9 @@ struct ShowExerciseView: View {
                         .overlay(Rectangle().stroke(Color.blue, lineWidth: 2))
                         .cornerRadius(10)
                         .shadow(color: Color.black, radius: 3, x: 2)
-                    Text("Description")
+                    if exercise.description == nil{
+                        Text("No description added")
+                    }
                 }
             }
         }
@@ -196,7 +199,10 @@ struct ShowExerciseView: View {
 }
 
 struct AddExerciseView_Previews: PreviewProvider {
+    @EnvironmentObject var viewModel: AppViewModel
+    
     static var previews: some View {
-        ShowExerciseView()
+        ShowExerciseView(exercise: Exercise(name: "a", muscleGroup: "bcd", sets: 3, repetitions: 10))
+            .environmentObject(AppViewModel())
     }
 }
