@@ -54,7 +54,7 @@ struct HomeView: View {
                         List(){
                             ForEach(viewModel.standardWorkoutsList){ entry in
                                 NavigationLink(destination: WorkoutView(entryName: entry.name, entryExerList: entry.exercisesList), label: {
-                                    if let name = entry.name{ Text(name) }
+                                    if let name = entry.name{ CellView(name: name) }
                                 })
                             }.onDelete(){ indexSet in
                                 viewModel.deleteStandardWorkout(at: indexSet)

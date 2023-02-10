@@ -48,7 +48,7 @@ struct ExercisesView: View{
     //-----------------------------------------------------------------------
                         List(){
                             ForEach(exerciseList){ exercise in
-                                NavigationLink(destination: ShowExerciseView(exercise: exercise), label: {Text(exercise.name)})
+                                NavigationLink(destination: ShowExerciseView(exercise: exercise), label: {CellView(name: exercise.name, muscleGroup: exercise.muscleGroup)})
                                 /*NavigationLink(destination: CellView(name: exercise.name, muscleGroup: exercise.muscleGroup), label: {Text(exercise.name)})*/
                             }
                             .onDelete(){ indexSet in
@@ -61,7 +61,7 @@ struct ExercisesView: View{
     //-----------------------------------------------------------------------
                         List(){
                             ForEach(viewModel.standardExerciseList){ exercise in
-                                NavigationLink(destination: ShowExerciseView(exercise: exercise), label: {Text(exercise.name)})
+                                NavigationLink(destination: ShowExerciseView(exercise: exercise), label: {CellView(name: exercise.name, muscleGroup: exercise.muscleGroup)})
                                 /*NavigationLink(destination: CellView(name: exercise.name, muscleGroup: exercise.muscleGroup), label: {Text(exercise.name)})*/
                             }
                             .onDelete(){ indexSet in
@@ -127,11 +127,22 @@ struct ExercisesView: View{
 }//struct
 struct CellView: View{
     var name: String
-    var muscleGroup: String
+    var muscleGroup: String?
     
     var body: some View{
-        Text(muscleGroup)
-        Text(name)
+        HStack{
+            Text(name.capitalized)
+                .background(Color.blankSpace)
+                .cornerRadius(8)
+            Spacer()
+            if let group = muscleGroup{
+                Text(group.capitalized)
+                    .background(Color.blankSpace)
+                    .cornerRadius(8)
+            }else{
+                Text("")
+            }
+        }
     }
     func saveExercise(){
         
