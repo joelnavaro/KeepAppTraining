@@ -14,21 +14,14 @@ class Workout: Identifiable, ObservableObject{
     //var image : Image or UIImage
     //emoji to show on the lists
     //var b = "💪🏾"
-    //added these 2 to exercise instead
-    //int for sets
-    var sets : Int
-    //int for repetitions
-    var repetitions : Int
     
     //a workout is a list of exercises
-    var exercisesList : [Exercise] = [] //an empty list, doesnt need to be declared in init
+    var exercisesList = [Exercise]()//an empty list, doesnt need to be declared in init
     //var exercisesList2 = [Exercise]() //why not like this?
     
     
-    init(name : String, sets : Int, repetitions : Int) {
+    init(name : String) {
         self.name = name
-        self.sets = sets
-        self.repetitions = repetitions
       //  self.exercisesList = exercisesList
         addMockData()
     }

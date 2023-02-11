@@ -53,43 +53,42 @@ struct HomeView: View {
                     VStack{
                         List(){
                             ForEach(viewModel.standardWorkoutsList){ entry in
-                                NavigationLink(destination: WorkoutView(entryName: entry.name, entryExerList: entry.exercisesList), label: {
+                                NavigationLink(destination: ShowWorkoutView(entryName: entry.name, entryExerList: entry.exercisesList), label: {
                                     if let name = entry.name{ CellView(name: name) }
                                 })
                             }.onDelete(){ indexSet in
                                 viewModel.deleteStandardWorkout(at: indexSet)
                             }
+                            .listRowBackground(Color.blankSpace)
                         }
                     }
-                    .padding(5)
                     .cornerRadius(25)
+                    .padding(10)
     //MARK: list with workoutlist from user
                     VStack{
                         List(){
                             ForEach(viewModel.user.workoutList){ entry in
-                                NavigationLink(destination: WorkoutView(entryName: entry.name, entryExerList: entry.exercisesList), label: {
+                                NavigationLink(destination: ShowWorkoutView(entryName: entry.name, entryExerList: entry.exercisesList), label: {
                                     if let name = entry.name{
-                                        Text(name)
+                                        CellView(name: name)
                                     }
                                 })
                             }.onDelete(){ indexSet in
                                 viewModel.deleteUserWorkout(at: indexSet)
                             }
+                            .listRowBackground(Color.blankSpace)
                         }
                     }
-                    .padding(5)
                     .cornerRadius(25)
+                    .padding(10)
                     HStack{
                         NavigationLink(destination: ExercisesView(), label: {
                             ButtonView(item: "Exercises", w: 180, h: 50)
                         }).padding(2)
-                        Button(action: {
-                            
-                        }, label: {
+                        NavigationLink(destination: AddWorkoutView(), label: {
                             ButtonView(item: "Create Workout", w: 180, h: 50)
                         }).padding(2)
                     }
-                    .cornerRadius(10)
                     Button(action: {
                         viewModel.signOut()
                     }, label: {

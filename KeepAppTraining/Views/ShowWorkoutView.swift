@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct WorkoutView: View {
+struct ShowWorkoutView: View {
     @EnvironmentObject var viewModel : AppViewModel
     @State var restTime = ""
     var entryName: String
@@ -28,17 +28,21 @@ struct WorkoutView: View {
                     TextField("Rest inbetwen sets", text: $restTime)
                 })
             }
-            //MARK: row for a set
+            //MARK: List with rows for every workout
             List() {
                 ForEach(entryExerList) { exercise in
-                    Text(exercise.name)
-                    ZStack {
-                        Text("Define SetRow")
+                    /*Text(exercise.name)*/
+                    VStack (alignment: .center){
+                        WorkoutCellView(exercise: exercise)
+                            .cornerRadius(25)
+                        /*Text("Define SetRow")
                         RoundedRectangle(cornerRadius: 50).fill(.gray)
-                            .frame(width: 350, height: 60)
+                            .frame(width: 350, height: 60)*/
                     }
                 }
+                .padding(-5)
             }
+            .padding(-15)
         }
         .navigationTitle("\(entryName)") //the name of the workoutentry from user list
     }

@@ -53,8 +53,8 @@ struct ExercisesView: View{
                             }
                             .onDelete(){ indexSet in
                                 exerciseList.remove(atOffsets: indexSet)
-                                //viewModel.deleteStandardExercise(indexSet: indexSet)
                             }
+                            .listRowBackground(Color.blankSpace)
                         }
                         .cornerRadius(25)
                         .padding(8)
@@ -67,6 +67,7 @@ struct ExercisesView: View{
                             .onDelete(){ indexSet in
                                 viewModel.deleteStandardExercise(indexSet: indexSet)
                             }
+                            .listRowBackground(Color.blankSpace)
                         }
                         .cornerRadius(25)
                         .padding(8)
@@ -125,29 +126,6 @@ struct ExercisesView: View{
         return list
     }
 }//struct
-struct CellView: View{
-    var name: String
-    var muscleGroup: String?
-    
-    var body: some View{
-        HStack{
-            Text(name.capitalized)
-                .background(Color.blankSpace)
-                .cornerRadius(8)
-            Spacer()
-            if let group = muscleGroup{
-                Text(group.capitalized)
-                    .background(Color.blankSpace)
-                    .cornerRadius(8)
-            }else{
-                Text("")
-            }
-        }
-    }
-    func saveExercise(){
-        
-    }
-}
 
 struct AddExercise: View{
     var body: some View {

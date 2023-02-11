@@ -33,10 +33,10 @@ class AppViewModel: ObservableObject{
     }
     func mockdata(){
         //for the user workoutlist
-        user.workoutList.append(Workout(name: " User First Workout", sets: 3, repetitions: 10))
+        user.workoutList.append(Workout(name: " User First Workout"))
         
         //for the base woroutlist in viewmodel
-        standardWorkoutsList.append(Workout(name: "AppModel First Workout", sets: 3, repetitions: 10))
+        standardWorkoutsList.append(Workout(name: "AppModel First Workout"))
         
         standardExerciseList.append(Exercise(name: "Cable Triceps Pushdown", muscleGroup: "arms", sets: 8,repetitions: 8))
         standardExerciseList.append(Exercise(name: "Biceps curl", muscleGroup: "arms", sets: 8,repetitions: 8))
