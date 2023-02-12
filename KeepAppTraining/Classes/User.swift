@@ -9,7 +9,9 @@ import SwiftUI
 
 class User: ObservableObject{
     
-    var name: String?
+    var firstName: String?
+    var lastName: String?
+    var age: Int?
     //remember to change the list from standard to user in exercise view
     //MARK: to save new exercises and show in exercises view
     @Published var exerciseList = [Exercise]()

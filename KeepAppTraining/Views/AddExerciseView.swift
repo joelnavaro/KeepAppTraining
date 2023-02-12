@@ -19,6 +19,8 @@ struct AddExerciseView: View {
     
     var exerciseList : [Exercise]
     
+    let groupTypes = ["Arms","Chest","Back","Legs"]
+    
     var body: some View {
         ZStack{
             Color.testCard.ignoresSafeArea()
@@ -34,7 +36,7 @@ struct AddExerciseView: View {
                         .padding(.bottom, 50)
                     Text("Add exercise (Title)")
                 }
-                //MARK: Name and group
+    //MARK: Name and group
                 HStack{
                     ZStack{
                         Color.blankSpace
@@ -58,8 +60,14 @@ struct AddExerciseView: View {
                             .shadow(color: Color.black, radius: 3, x: 2)
                         Text("Muscle Group: ")
                     }
-                    //MARK: change the textview for a dropdown menu
-                    TextField("Muscle Group...", text: $mGroup).background(Color.white)
+    //MARK: change the textview for a dropdown menu
+                    //TextField("Muscle Group...", text: $mGroup).background(Color.white)
+                    Picker("Muscle Group:", selection: $mGroup){
+                        ForEach(groupTypes, id: \.self){
+                            Text($0)
+                        }
+                    }
+                    .background(Color.blankSpace)
                 }
                 .padding(10)
                 //MARK: Sets and Reps
@@ -86,7 +94,7 @@ struct AddExerciseView: View {
                     TextField("Repetitions...", text: $reps).background(Color.white)
                 }
                 .padding(15)
-                //MARK: Description
+    //MARK: Description
                 ZStack {
                     Color.blankSpace
                         .frame(width: 150, height: 30)
@@ -145,21 +153,21 @@ struct ShowExerciseView: View {
                 HStack{
                     ZStack{
                         Color.blankSpace
-                            .frame(width: 140, height: 40)
+                            .frame(width: 150, height: 40)
                             .clipShape(Rectangle())
                             .overlay(Rectangle().stroke(Color.blue))
                             .cornerRadius(10)
                             .shadow(color: Color.black, radius: 3, x: 2)
-                        Text("\(exercise.name)")
+                        Text("\(exercise.name.prefix(10)+"...")")
                     }
                     ZStack{
                         Color.blankSpace
-                            .frame(width: 140, height: 40)
+                            .frame(width: 150, height: 40)
                             .clipShape(Rectangle())
                             .overlay(Rectangle().stroke(Color.blue))
                             .cornerRadius(10)
                             .shadow(color: Color.black, radius: 3, x: 2)
-                        Text("\(exercise.muscleGroup)")
+                        Text("Group: \(exercise.muscleGroup.capitalized)")
                     }
                 }
                 HStack{
@@ -170,7 +178,7 @@ struct ShowExerciseView: View {
                             .overlay(Rectangle().stroke(Color.blue))
                             .cornerRadius(10)
                             .shadow(color: Color.black, radius: 3, x: 2)
-                        Text("\(exercise.sets)")
+                        Text("\(exercise.sets) Sets")
                     }
                     ZStack{
                         Color.blankSpace
@@ -179,7 +187,7 @@ struct ShowExerciseView: View {
                             .overlay(Rectangle().stroke(Color.blue))
                             .cornerRadius(10)
                             .shadow(color: Color.black, radius: 3, x: 2)
-                        Text("\(exercise.repetitions)")
+                        Text("\(exercise.repetitions) Repetitions")
                     }
                 }
                 ZStack{

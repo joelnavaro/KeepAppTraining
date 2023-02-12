@@ -15,6 +15,8 @@ class Workout: Identifiable, ObservableObject{
     //emoji to show on the lists
     //var b = "💪🏾"
     
+    var date : Date = Date()
+    
     //a workout is a list of exercises
     var exercisesList = [Exercise]()//an empty list, doesnt need to be declared in init
     //var exercisesList2 = [Exercise]() //why not like this?

@@ -17,6 +17,7 @@ struct Exercise: Identifiable, Equatable{
     //int for repetitions
     var repetitions : Int
     // int for wheight, ouede ser nil, asi vas por libre
+    var isSelected = false
     
     // var weight : Double / can be optional
     //little description of the exercise

@@ -13,7 +13,6 @@ struct WorkoutCellView: View {
     var body: some View {
         ZStack{
             Color.blankSpace
-                .frame(width: .infinity, height: 250)
             VStack{
                 HStack{
                     Text("\(exercise.name)")
@@ -27,7 +26,7 @@ struct WorkoutCellView: View {
                     Text("Animation")
                 }
             }
-        }
+        }.frame(width: 350, height: 250)
     }
 }
 
