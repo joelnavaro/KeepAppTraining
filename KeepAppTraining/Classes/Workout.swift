@@ -18,7 +18,7 @@ class Workout: Identifiable, ObservableObject{
     var date : Date = Date()
     
     //a workout is a list of exercises
-    var exercisesList = [Exercise]()//an empty list, doesnt need to be declared in init
+    @Published var exercisesList = [Exercise]()//an empty list, doesnt need to be declared in init
     //var exercisesList2 = [Exercise]() //why not like this?
     
     
@@ -30,6 +30,15 @@ class Workout: Identifiable, ObservableObject{
     
     func addMockData(){
         //MARK: this list is supposed to be empty when creating a workout
+        exercisesList.append(Exercise(name: "Cable Triceps Pushdown", muscleGroup: "arms", sets: 8,repetitions: 8, isSelected: false))
+        exercisesList.append(Exercise(name: "Biceps curl", muscleGroup: "arms", sets: 8,repetitions: 8, isSelected: false))
+        exercisesList.append(Exercise(name: "Cable Chest Flys", muscleGroup: "chest", sets: 4,repetitions: 10, isSelected: true))
+        exercisesList.append(Exercise(name: "Incline Bench Press", muscleGroup: "chest", sets: 4,repetitions: 10, isSelected: false))
+        exercisesList.append(Exercise(name: "Back extension", muscleGroup: "back", sets: 4,repetitions: 6, isSelected: true))
+        exercisesList.append(Exercise(name: "Lat Pull-Down", muscleGroup: "back", sets: 4,repetitions: 6, isSelected: false))
+        exercisesList.append(Exercise(name: "Back Squat", muscleGroup: "legs", sets: 4,repetitions: 8, isSelected: false))
+        exercisesList.append(Exercise(name: "Front Squat", muscleGroup: "legs", sets: 4,repetitions: 8, isSelected: false))
+        /*
         exercisesList.append(Exercise(name: "Cable Triceps Pushdown", muscleGroup: "Arms", sets: 8,repetitions: 8))
         exercisesList.append(Exercise(name: "Biceps curl", muscleGroup: "Arms", sets: 8,repetitions: 8))
         exercisesList.append(Exercise(name: "Cable Chest Flys", muscleGroup: "Chest", sets: 4,repetitions: 10))
@@ -37,7 +46,7 @@ class Workout: Identifiable, ObservableObject{
         exercisesList.append(Exercise(name: "Back extension", muscleGroup: "Back", sets: 4,repetitions: 6))
         exercisesList.append(Exercise(name: "Lat Pull-Down", muscleGroup: "Back", sets: 4,repetitions: 6))
         exercisesList.append(Exercise(name: "Back Squat", muscleGroup: "Legs", sets: 4,repetitions: 8))
-        exercisesList.append(Exercise(name: "Front Squat", muscleGroup: "Legs", sets: 4,repetitions: 8))
+        exercisesList.append(Exercise(name: "Front Squat", muscleGroup: "Legs", sets: 4,repetitions: 8))*/
         
         //var a = Workout(name: "test", sets: 3, repetitions: 10)
         

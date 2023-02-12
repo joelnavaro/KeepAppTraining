@@ -10,7 +10,14 @@ import SwiftUI
 struct AddWorkoutView: View {
     @EnvironmentObject var viewModel: AppViewModel
     @State var name = ""
-    @State var isChecked = false
+    @State var isChecked : Bool = false
+    @State var itemsSelected = [Exercise]()
+    
+    /*@State var selectedItems = Set<UUID>()
+    @State var isChecked : Bool{
+        selectedItems.contains(viewModel.standardExerciseList.exercise.id)
+    }
+    @State var selectedRows = Set<UUID>()*/
     
     
     /*en la funcion que haga un workour object anade esta funcion
@@ -56,6 +63,17 @@ struct AddWorkoutView: View {
                             HStack{
                                 Text(exercise.name)
                                 Spacer()
+                                Button(action: {
+                                    select(item: exercise)
+                                    //exercise.isSelected.toggle() no funciona
+                                    //isChecked.toggle()
+                                    //exercise.isSelected = true no funciona
+                                    //exercise.isSelected.toggle() no funciona
+                                }, label: {
+                                    //Image(systemName: isChecked ? "checkmark.square" : "square")
+                                    //Image(systemName: exercise.isSelected ? "checkmark.square" : "square")
+                                    Image(systemName: itemsSelected.contains(exercise) ? "checkmark.square" : "square")
+                                })
                                 //Image(systemName: "square")
                                 /*Toggle(isOn: $isChecked, label: {
                                     Text(exercise.name)
@@ -70,21 +88,36 @@ struct AddWorkoutView: View {
                             }
                         }
                         .listRowBackground(Color.blankSpace)
+                        //.toolbar{
+                        //    EditButton()
+                        //}
                     }
                     Button(action: {
-                        
+                        addWorkout()
                     }, label: {
                         Text("Done")
                     })
                 }
+                //.navigationTitle("\(selectedRows.count) Exercises selected")
+                .navigationTitle("Exercises selected")
                 .cornerRadius(10)
                 .padding(10)
             }
         }
     }
     func addWorkout(){
+        if !name.isEmpty{
+            let workout = Workout(name: name)
+            workout.exercisesList = itemsSelected
+            viewModel.user.workoutList.append(workout)
+        }
+        print("Model has: \(viewModel.user.workoutList.count)")
         // crea y append ejercicios a una lista, que luego agregaras al newworkout
         //let newWorkout = Workout(name: name, exercisesList:  )
+    }
+    func select(item: Exercise){
+        itemsSelected.append(item)
+        print("preliminar has: \(itemsSelected.count)")
     }
 }
 

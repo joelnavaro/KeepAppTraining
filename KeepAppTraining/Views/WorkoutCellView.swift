@@ -30,8 +30,8 @@ struct WorkoutCellView: View {
     }
 }
 
-struct WorkoutCellView_Previews: PreviewProvider {
+/*struct WorkoutCellView_Previews: PreviewProvider {
     static var previews: some View {
         WorkoutCellView(exercise: Exercise(name: "Test", muscleGroup: "Test", sets: 3, repetitions: 10))
     }
-}
+}*/
