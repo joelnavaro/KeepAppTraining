@@ -49,21 +49,6 @@ struct HomeView: View {
                     .padding(8)
                     //.border(Color.blue, width: 3)
                     Spacer()
-    //MARK: list with workoutlist from AppViewModel
-                    VStack{
-                        List(){
-                            ForEach(viewModel.standardWorkoutsList){ entry in
-                                NavigationLink(destination: ShowWorkoutView(entryName: entry.name, entryExerList: entry.exercisesList), label: {
-                                    if let name = entry.name{ CellView(name: name) }
-                                })
-                            }.onDelete(){ indexSet in
-                                viewModel.deleteStandardWorkout(at: indexSet)
-                            }
-                            .listRowBackground(Color.blankSpace)
-                        }
-                    }
-                    .cornerRadius(25)
-                    .padding(10)
     //MARK: list with workoutlist from user
                     VStack{
                         List(){
@@ -81,6 +66,9 @@ struct HomeView: View {
                     }
                     .cornerRadius(25)
                     .padding(10)
+                    .onAppear(){
+                        //update list
+                    }
                     HStack{
                         NavigationLink(destination: ExercisesView(), label: {
                             ButtonView(item: "Exercises", w: 180, h: 50)
@@ -114,7 +102,7 @@ struct HomeView: View {
 }
 
 struct OverviewView_Previews: PreviewProvider {
-    @StateObject var model : Workout
+    @State var model : Workout
     
     static var previews: some View {
         HomeView()

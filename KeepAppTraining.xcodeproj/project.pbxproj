@@ -32,6 +32,7 @@
 		C3FE3438299434C800B6319B /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3FE3437299434C800B6319B /* Extensions.swift */; };
 		C3FE34722997F89E00B6319B /* CellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3FE34712997F89E00B6319B /* CellView.swift */; };
 		C3FE34742997FFD100B6319B /* WorkoutCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3FE34732997FFD100B6319B /* WorkoutCellView.swift */; };
+		C3FE3476299AE58C00B6319B /* MyNotes.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3FE3475299AE58B00B6319B /* MyNotes.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -76,6 +77,7 @@
 		C3FE3437299434C800B6319B /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		C3FE34712997F89E00B6319B /* CellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellView.swift; sourceTree = "<group>"; };
 		C3FE34732997FFD100B6319B /* WorkoutCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutCellView.swift; sourceTree = "<group>"; };
+		C3FE3475299AE58B00B6319B /* MyNotes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyNotes.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -173,6 +175,7 @@
 				C30433A72988840000088065 /* Workout.swift */,
 				C30433A5298880F600088065 /* Exercise.swift */,
 				C3FE33E8298EE8E600B6319B /* User.swift */,
+				C3FE3475299AE58B00B6319B /* MyNotes.swift */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -348,6 +351,7 @@
 				C3B8211129818E8500F8BFCA /* KeepAppTrainingApp.swift in Sources */,
 				C3FE343029924C7C00B6319B /* ShowWorkoutView.swift in Sources */,
 				C3FE34722997F89E00B6319B /* CellView.swift in Sources */,
+				C3FE3476299AE58C00B6319B /* MyNotes.swift in Sources */,
 				C30433A82988840000088065 /* Workout.swift in Sources */,
 				C3FE33E9298EE8E600B6319B /* User.swift in Sources */,
 				C3FE3438299434C800B6319B /* Extensions.swift in Sources */,

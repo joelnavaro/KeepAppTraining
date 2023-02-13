@@ -1,24 +1,15 @@
-//
-//  ExercisesView.swift
-//  KeepAppTraining
-//
-//  Created by Joel Pena Navarro on 2023-02-01.
-//
-
-import SwiftUI
-
-import SwiftUI
-
 import FirebaseAuth
+import SwiftUI
 import FirebaseCore
 import FirebaseFirestore
+import FirebaseFirestoreSwift
 
 struct ExercisesView: View{
     @EnvironmentObject var viewModel: AppViewModel
     //@State var chest = [Exercise]()
     var buttonsMenu = ["arms", "chest", "back", "legs"] //names on buttons
     //@StateObject var workoutModel = Workout() //un workout
-//MARK: list of exercises created onAppear
+    //MARK: list of exercises created onAppear
     @State var exerciseList : [Exercise] = []
     @State var addExerSheet = false
     
@@ -39,13 +30,13 @@ struct ExercisesView: View{
                             .padding(3)
                         }
                     }//ButtonsScrollView
-//MARK: shows user list
+                    //MARK: shows user list
                     VStack{
                         Divider().padding(8)//linea divisoria
-                        Text("Filtered Lista")
+                        Text("Filtered List")
                         Divider().padding(8)//linea divisoria
-//MARK: PUT SHOWUSERLIST() instead WHEN APP READY TO SHOW
-    //-----------------------------------------------------------------------
+                        //MARK: PUT SHOWUSERLIST() instead WHEN APP READY TO SHOW
+                        //-----------------------------------------------------------------------
                         List(){
                             ForEach(exerciseList){ exercise in
                                 NavigationLink(destination: ShowExerciseView(exercise: exercise), label: {CellView(name: exercise.name, muscleGroup: exercise.muscleGroup)})
@@ -58,7 +49,9 @@ struct ExercisesView: View{
                         }
                         .cornerRadius(25)
                         .padding(8)
-    //-----------------------------------------------------------------------
+                        //-----------------------------------------------------------------------
+                        Text("Filtered List")
+                        Divider().padding(8)
                         List(){
                             ForEach(viewModel.standardExerciseList){ exercise in
                                 NavigationLink(destination: ShowExerciseView(exercise: exercise), label: {CellView(name: exercise.name, muscleGroup: exercise.muscleGroup)})
@@ -71,10 +64,6 @@ struct ExercisesView: View{
                         }
                         .cornerRadius(25)
                         .padding(8)
-    //-----------------------------------------------------------------------
-                        Text("User's Lista")
-                        
-                        
                     }
                     .padding(2)
                     
@@ -93,25 +82,15 @@ struct ExercisesView: View{
             //.background(Color(.init(white: 2, alpha: 0.05)))
         }//zstack
         .onAppear(){ //when this view starts, sorts a list and show
-           //exerciseList = showUserList(from: viewModel, group: buttonsMenu[0])
-            print("\(viewModel.user.exerciseList.count)")
+            exerciseList = showStandardList(from: viewModel, group: buttonsMenu[Int.random(in: 0...3)])
+            print("\(viewModel.standardExerciseList.count)")
         }
-        .sheet(isPresented: $addExerSheet){ //en este content se puede agregar un onDismiss: para que pase algo al cerrar el sheet
+        .sheet(isPresented: $addExerSheet){
             AddExerciseView(exerciseList: exerciseList)
         }
     }//body
-//MARK: shows user list for mail user
-    func showUserList(from model: AppViewModel, group: String)->[Exercise]{
-        var list = [Exercise]()
-        
-        for exercise in model.user.exerciseList{
-            if exercise.muscleGroup == group{
-                list.append(exercise)
-            }
-        }
-        return list
-    }
-//MARK: shows standard list for annon user
+    
+    //MARK: shows standard list for annon user
     func showStandardList(from model: AppViewModel, group: String)->[Exercise]{
         var list = [Exercise]()
         //using a test workout created in appviewmodel
@@ -127,18 +106,6 @@ struct ExercisesView: View{
     }
 }//struct
 
-struct AddExercise: View{
-    var body: some View {
-        VStack{
-            Text("Add exercises to the model list in view model")
-            Text("create a view to show exercises objects")
-            Text("create NavBarTitle/NaviBarItems")
-            Text("create func to save exercises")
-            Text("if you want info from previous page, create a variable in the new page of the same type and a func that saves in this variable what you want to send back in the func that saves the exercise")
-        }
-        
-    }
-}
 struct ButtonView: View {
     var item: String
     var w: CGFloat

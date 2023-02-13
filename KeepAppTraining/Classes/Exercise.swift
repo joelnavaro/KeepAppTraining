@@ -1,14 +1,14 @@
-//
-//  Exercise.swift
-//  KeepAppTraining
-//
-//  Created by Joel Pena Navarro on 2023-01-30.
-//
+import FirebaseAuth
+import SwiftUI
+import FirebaseCore
+import FirebaseFirestore
+import FirebaseFirestoreSwift
 
 import SwiftUI
 
-struct Exercise: Identifiable, Equatable{
-    var id = UUID()
+struct Exercise: Identifiable, Equatable, Codable{
+    @DocumentID var id : String?
+    //var id = UUID()
     var name : String
     var muscleGroup : String
     
@@ -17,7 +17,7 @@ struct Exercise: Identifiable, Equatable{
     //int for repetitions
     var repetitions : Int
     // int for wheight, puede ser nil, asi vas por libre
-    var isSelected : Bool = false
+    var isSelected = false
     
     // var weight : Double / can be optional
     //little description of the exercise

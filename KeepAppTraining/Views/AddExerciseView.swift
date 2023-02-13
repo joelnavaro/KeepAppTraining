@@ -5,7 +5,12 @@
 //  Created by Joel Pena Navarro on 2023-02-07.
 //
 
+import Foundation
+import FirebaseAuth
 import SwiftUI
+import FirebaseCore
+import FirebaseFirestore
+import FirebaseFirestoreSwift
 
 struct AddExerciseView: View {
     @EnvironmentObject var viewModel: AppViewModel
@@ -62,7 +67,7 @@ struct AddExerciseView: View {
                     }
     //MARK: change the textview for a dropdown menu
                     //TextField("Muscle Group...", text: $mGroup).background(Color.white)
-                    Picker("Muscle Group:", selection: $mGroup){
+                    Picker("Muscle Group", selection: $mGroup){
                         ForEach(groupTypes, id: \.self){
                             Text($0)
                         }
@@ -134,10 +139,16 @@ struct AddExerciseView: View {
         
         if let newSet = newSet, let newReps = newReps {
             let entry = Exercise(name: name, muscleGroup: mGroup, sets: newSet, repetitions: newReps, description: description)
-            viewModel.user.exerciseList.append(entry)
-            viewModel.standardExerciseList.append(entry)
+            //viewModel.user.exerciseList.append(entry)
+            viewModel.standardExerciseList.append(entry) // wont need this once i can read from firestore
+            guard let user = viewModel.auth.currentUser else {return}
+            do{
+                _ = try viewModel.db.collection("users").document(user.uid).collection("exercises").addDocument(from: entry)
+            } catch {
+                print("error saving to DB")
+            }
         }
-        print("\(viewModel.user.exerciseList.count)")
+        print("\(viewModel.standardExerciseList.count)")
     }
     
 }//addExerciseView
