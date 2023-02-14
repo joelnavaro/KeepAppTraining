@@ -54,6 +54,17 @@ standardExerciseList.append(Exercise(name: "Front Squat", muscleGroup: "legs", s
  print(currentUser)
  }*/
 
+//for filtered list
+/*func deleteFromDb(indexSet: IndexSet, list: [Exercise]){
+    for index in indexSet{
+        let item = list[index]
+        if let id = item.id,
+            let user = auth.currentUser{
+            db.collection("users").document(user.uid).collection("exercises").document(id).delete()
+        }
+    }
+}*/
+
 //MARK: USER
 
 
@@ -109,6 +120,24 @@ var date : String{
 let workout = Workout(name: name)
 workout.exercisesList = itemsSelected*
 viewModel.user.workoutList.append(workout)*/
+
+//clickable list
+/*List(){
+    ForEach(viewModel.standardExerciseList) { exercise in
+    //ForEach(newWorkout.exercisesList) { exercise in
+        HStack{
+            Text(exercise.name)
+            Spacer()
+            Button(action: {
+                //select(item: exercise)
+                //exercise.isSelected.toggle()
+            }, label: {
+                Image(systemName: exercise.isSelected ? "checkmark.square" : "square")
+            })
+        }
+    }
+    .listRowBackground(Color.blankSpace)
+}*/
 
 //MARK: WORKOUT CLASS
 

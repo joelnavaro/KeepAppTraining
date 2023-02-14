@@ -53,11 +53,13 @@ struct HomeView: View {
                     VStack{
                         List(){
                             ForEach(viewModel.user.workoutList){ entry in
-                                NavigationLink(destination: ShowWorkoutView(entryName: entry.name, entryExerList: entry.exercisesList), label: {
-                                    if let name = entry.name{
-                                        CellView(name: name)
-                                    }
-                                })
+                                if let name = entry.name{
+                                    NavigationLink(destination: ShowWorkoutView(entryName: name, entryExerList: entry.exercisesList), label: {
+                                        if let name = entry.name{
+                                            CellView(name: name)
+                                        }
+                                    })
+                                }
                             }.onDelete(){ indexSet in
                                 viewModel.deleteUserWorkout(at: indexSet)
                                 //need to create database for workout first

@@ -22,9 +22,6 @@ struct CellView: View{
             }
         }
     }
-    func saveExercise(){
-        
-    }
 }
 
 struct CellView_Previews: PreviewProvider {

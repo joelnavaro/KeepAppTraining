@@ -30,7 +30,7 @@ struct ShowWorkoutView: View {
             }
             //MARK: List with rows for every workout
             List() {
-                ForEach(entryExerList) { exercise in
+                ForEach(entryExerList, id: \.id) { exercise in
                     /*Text(exercise.name)*/
                     VStack (alignment: .center){
                         WorkoutCellView(exercise: exercise)

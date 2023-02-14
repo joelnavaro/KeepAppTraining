@@ -119,19 +119,6 @@ class AppViewModel: ObservableObject{
         self.signedIn = false
     }
 //MARK: delete functions
-    //for full list
-    func deleteInDb(indexSet: IndexSet){
-        //standardExerciseList.remove(atOffsets: indexSet)
-        
-        for index in indexSet{
-                let item = standardExerciseList[index]
-                if let id = item.id,
-                   let user = auth.currentUser{
-                    db.collection("users").document(user.uid).collection("exercises").document(id).delete()
-                }
-            }
-        
-    }
     /*func deleteUserExercise(indexSet: IndexSet){
         user.exerciseList.remove(atOffsets: indexSet)
     }*/
@@ -177,15 +164,20 @@ class AppViewModel: ObservableObject{
             print("error saving to DB")
         }
     }
-    //for filtered list
-    func deleteFromDb(indexSet: IndexSet, list: [Exercise]){
+    //for full list
+    func deleteInDb(indexSet: IndexSet){
+        //standardExerciseList.remove(atOffsets: indexSet)
+        
         for index in indexSet{
-            let item = list[index]
-            if let id = item.id,
-                let user = auth.currentUser{
-                db.collection("users").document(user.uid).collection("exercises").document(id).delete()
+                let item = standardExerciseList[index]
+                if let id = item.id,
+                   let user = auth.currentUser{
+                    db.collection("users").document(user.uid).collection("exercises").document(id).delete()
+                }
             }
-        }
+        
     }
+
+    
     
 }

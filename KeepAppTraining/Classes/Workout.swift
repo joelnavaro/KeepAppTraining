@@ -9,7 +9,7 @@ import SwiftUI
 
 struct Workout: Identifiable, Codable{
     var id = UUID()
-    var name : String
+    var name : String?
     //image for the workoutview
     //var image : Image or UIImage
     //emoji to show on the lists
@@ -22,11 +22,6 @@ struct Workout: Identifiable, Codable{
     //var exercisesList2 = [Exercise]() //why not like this?
     
     
-    init(name : String) {
-        self.name = name
-      //  self.exercisesList = exercisesList
-        dummyData()
-    }
     
     func dummyData(){
         

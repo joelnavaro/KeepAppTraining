@@ -40,9 +40,6 @@ struct ExercisesView: View{
                         List(){
                             ForEach(exerciseList){ exercise in
                                 NavigationLink(destination: ShowExerciseView(exercise: exercise), label: {CellView(name: exercise.name, muscleGroup: exercise.muscleGroup)})
-                            }//delete this onDelete, so its only possible to delete from full list
-                            .onDelete(){ indexSet in
-                                exerciseList.remove(atOffsets: indexSet)
                             }
                             .listRowBackground(Color.blankSpace)
                         }
@@ -56,7 +53,7 @@ struct ExercisesView: View{
                                 NavigationLink(destination: ShowExerciseView(exercise: exercise), label: {CellView(name: exercise.name, muscleGroup: exercise.muscleGroup)})
                             }
                             .onDelete(){ indexSet in
-                                viewModel.deleteFromDb(indexSet: indexSet, list: viewModel.standardExerciseList)
+                                viewModel.deleteInDb(indexSet: indexSet)
                             }
                             .listRowBackground(Color.blankSpace)
                         }
@@ -82,7 +79,7 @@ struct ExercisesView: View{
         .onAppear(){ //when this view starts, sorts a list and show
             //viewModel.dummyDbData()
             exerciseList = filterListByGroups(from: viewModel, group: buttonsMenu[Int.random(in: 0...3)])
-            //print("N Exercises: \(viewModel.standardExerciseList.count) ExerciseView")
+            print("N Exercises: \(viewModel.standardExerciseList.count) ExerciseView")
         }
         .sheet(isPresented: $addExerSheet){
             AddExerciseView(exerciseList: exerciseList)
