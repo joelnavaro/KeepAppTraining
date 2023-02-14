@@ -65,7 +65,8 @@ struct AddWorkoutView: View {
                     Button(action: {
                         addWorkout()
                     }, label: {
-                        Text("Done")
+                        ButtonView(item: "Done", w: 90, h: 50)
+                        
                     })
                 }
                 //.navigationTitle("\(selectedRows.count) Exercises selected")
@@ -79,10 +80,18 @@ struct AddWorkoutView: View {
     }
     func addWorkout(){
         viewModel.user.workoutList.append(newWorkout)
+        
+        guard let user = viewModel.auth.currentUser else {return}
+        do{
+            _ = try viewModel.db.collection("users").document(user.uid).collection("workouts").addDocument(from: newWorkout)
+        } catch {
+            print("error saving to DB")
+        }
+        
         dismiss()
         print("Model has: \(viewModel.user.workoutList.count)")
-        for n in viewModel.user.workoutList{
-            print("lists have: \(n.exercisesList.count) exercises")
+        for workout in viewModel.user.workoutList{
+            print("workout \(workout) has: \(workout.exercisesList.count) exercises")
         }
     }
     
@@ -95,6 +104,7 @@ struct AddWorkoutView: View {
         }
         print("preliminar has: \(itemsSelected.count)")
     }
+    
     
 }
 

@@ -32,6 +32,7 @@ class AppViewModel: ObservableObject{
     
     init(){
         mockdata()
+        listenToFirestore()
     }
     func mockdata(){
         //creates a first workout for the user and fills its list with exercises
@@ -47,11 +48,25 @@ class AppViewModel: ObservableObject{
         
         
         user.workoutList.append(firstWorkout)
-
-        listenToFirestore()
     }
-    
-    //crear funciones read/write from database
+    func dummyDbData(){
+        let a = Exercise(name: "Cable Triceps Pushdown", muscleGroup: "arms", sets: 8,repetitions: 8)
+        let b = Exercise(name: "Biceps curl", muscleGroup: "arms", sets: 8,repetitions: 8)
+        let c = Exercise(name: "Cable Chest Flys", muscleGroup: "chest", sets: 4,repetitions: 10)
+        let d = Exercise(name: "Incline Bench Press", muscleGroup: "chest", sets: 4,repetitions: 10)
+        let e = Exercise(name: "Back extension", muscleGroup: "back", sets: 4,repetitions: 6)
+        let f = Exercise(name: "Lat Pull-Down", muscleGroup: "back", sets: 4,repetitions: 6)
+        let g = Exercise(name: "Back Squat", muscleGroup: "legs", sets: 4,repetitions: 8)
+        let h = Exercise(name: "Front Squat", muscleGroup: "legs", sets: 4,repetitions: 8)
+        saveToFirestore(exercise: a)
+        saveToFirestore(exercise: b)
+        saveToFirestore(exercise: c)
+        saveToFirestore(exercise: d)
+        saveToFirestore(exercise: e)
+        saveToFirestore(exercise: f)
+        saveToFirestore(exercise: g)
+        saveToFirestore(exercise: h)
+    }
     
 //MARK: Login funcstions
     func signInAnonymously(){
@@ -104,15 +119,27 @@ class AppViewModel: ObservableObject{
         self.signedIn = false
     }
 //MARK: delete functions
-    func deleteStandardExercise(indexSet: IndexSet){
-        standardExerciseList.remove(atOffsets: indexSet)
+    //for full list
+    func deleteInDb(indexSet: IndexSet){
+        //standardExerciseList.remove(atOffsets: indexSet)
+        
+        for index in indexSet{
+                let item = standardExerciseList[index]
+                if let id = item.id,
+                   let user = auth.currentUser{
+                    db.collection("users").document(user.uid).collection("exercises").document(id).delete()
+                }
+            }
+        
     }
     /*func deleteUserExercise(indexSet: IndexSet){
         user.exerciseList.remove(atOffsets: indexSet)
     }*/
+    //onDelete homeView list for usersWorkouts. list in users class
     func deleteUserWorkout(at indexSet: IndexSet){
         user.workoutList.remove(atOffsets: indexSet)
     }
+    //onDelete homeView list for standardWorkoutslist. list in viewmodel
     func deleteStandardWorkout(at indexSet: IndexSet){
         standardWorkoutsList.remove(atOffsets: indexSet)
     }
@@ -121,16 +148,13 @@ class AppViewModel: ObservableObject{
         guard let user = Auth.auth().currentUser else {return}
         
         db.collection("users").document(user.uid).collection("exercises").addSnapshotListener{snapshot, err in
-            //constatar que no es nil
-            guard let snapshot = snapshot else {return}
-            //constatar si hay error
-            if let err = err{
+            guard let snapshot = snapshot else {return} //check snapshot is not nil
+            
+            if let err = err{ //check for error
                 print("Error getting document \(err)")
             }else{
-                //the list where you save
-                self.standardExerciseList.removeAll()
-                //empezamos a leer documentos
-                for document in snapshot.documents{
+                self.standardExerciseList.removeAll() //the list where you save
+                for document in snapshot.documents{ //reading docs
                     let result = Result{
                         try document.data(as: Exercise.self)
                     }
@@ -153,6 +177,7 @@ class AppViewModel: ObservableObject{
             print("error saving to DB")
         }
     }
+    //for filtered list
     func deleteFromDb(indexSet: IndexSet, list: [Exercise]){
         for index in indexSet{
             let item = list[index]

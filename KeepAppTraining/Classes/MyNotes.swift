@@ -8,6 +8,21 @@
 import Foundation
 
 
+//MARK: CONTENTVIEW
+
+//under HomeView() a code for a signout
+/*Button(action: {
+    viewModel.signOut()
+}, label: {
+    Text("Sign Out")
+        .foregroundColor(Color.white)
+        .frame(width: 200, height: 50)
+        .background(Color.red)
+        .cornerRadius(8)
+        .padding()
+})*/
+
+
 //MARK: APPVIEWMODEL
 
 /*

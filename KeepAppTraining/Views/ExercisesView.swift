@@ -22,10 +22,10 @@ struct ExercisesView: View{
                     //MARK: SHOWS BUTTONS FOR THE EXERCISE MENU
                     ScrollView(.horizontal){
                         HStack(){
-                            ForEach(buttonsMenu, id: \.self){ item in
+                            ForEach(buttonsMenu, id: \.self){ type in
                                 Button(action: {
-                                    exerciseList = showStandardList(from: viewModel, group: item)
-                                }){ ButtonView(item: item.capitalized, w: 80, h: 50)}
+                                    exerciseList = filterListByGroups(from: viewModel, group: type)
+                                }){ ButtonView(item: type.capitalized, w: 80, h: 50)}
                             }
                             .padding(3)
                         }
@@ -40,8 +40,7 @@ struct ExercisesView: View{
                         List(){
                             ForEach(exerciseList){ exercise in
                                 NavigationLink(destination: ShowExerciseView(exercise: exercise), label: {CellView(name: exercise.name, muscleGroup: exercise.muscleGroup)})
-                                /*NavigationLink(destination: CellView(name: exercise.name, muscleGroup: exercise.muscleGroup), label: {Text(exercise.name)})*/
-                            }
+                            }//delete this onDelete, so its only possible to delete from full list
                             .onDelete(){ indexSet in
                                 exerciseList.remove(atOffsets: indexSet)
                             }
@@ -50,15 +49,14 @@ struct ExercisesView: View{
                         .cornerRadius(25)
                         .padding(8)
                         //-----------------------------------------------------------------------
-                        Text("Filtered List")
+                        Text("Full Exercises List")
                         Divider().padding(8)
                         List(){
                             ForEach(viewModel.standardExerciseList){ exercise in
                                 NavigationLink(destination: ShowExerciseView(exercise: exercise), label: {CellView(name: exercise.name, muscleGroup: exercise.muscleGroup)})
-                                /*NavigationLink(destination: CellView(name: exercise.name, muscleGroup: exercise.muscleGroup), label: {Text(exercise.name)})*/
                             }
                             .onDelete(){ indexSet in
-                                viewModel.deleteStandardExercise(indexSet: indexSet)
+                                viewModel.deleteFromDb(indexSet: indexSet, list: viewModel.standardExerciseList)
                             }
                             .listRowBackground(Color.blankSpace)
                         }
@@ -82,26 +80,24 @@ struct ExercisesView: View{
             //.background(Color(.init(white: 2, alpha: 0.05)))
         }//zstack
         .onAppear(){ //when this view starts, sorts a list and show
-            exerciseList = showStandardList(from: viewModel, group: buttonsMenu[Int.random(in: 0...3)])
-            print("\(viewModel.standardExerciseList.count)")
+            //viewModel.dummyDbData()
+            exerciseList = filterListByGroups(from: viewModel, group: buttonsMenu[Int.random(in: 0...3)])
+            //print("N Exercises: \(viewModel.standardExerciseList.count) ExerciseView")
         }
         .sheet(isPresented: $addExerSheet){
             AddExerciseView(exerciseList: exerciseList)
         }
     }//body
     
-    //MARK: shows standard list for annon user
-    func showStandardList(from model: AppViewModel, group: String)->[Exercise]{
+    //MARK: shows standard list
+    func filterListByGroups(from model: AppViewModel, group: String)->[Exercise]{
         var list = [Exercise]()
-        //using a test workout created in appviewmodel
+        
         for exercise in model.standardExerciseList{
             if exercise.muscleGroup == group{
                 list.append(exercise)
             }
         }
-        print("exercises: \(model.standardExerciseList.count)")
-        print(exerciseList.count)
-        print(list.count)
         return list
     }
 }//struct

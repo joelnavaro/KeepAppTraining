@@ -140,7 +140,7 @@ struct AddExerciseView: View {
         if let newSet = newSet, let newReps = newReps {
             let entry = Exercise(name: name, muscleGroup: mGroup, sets: newSet, repetitions: newReps, description: description)
             //viewModel.user.exerciseList.append(entry)
-            viewModel.standardExerciseList.append(entry) // wont need this once i can read from firestore
+            //viewModel.standardExerciseList.append(entry) // wont need this once i can read from firestore
             guard let user = viewModel.auth.currentUser else {return}
             do{
                 _ = try viewModel.db.collection("users").document(user.uid).collection("exercises").addDocument(from: entry)

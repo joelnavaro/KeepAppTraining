@@ -60,6 +60,8 @@ struct HomeView: View {
                                 })
                             }.onDelete(){ indexSet in
                                 viewModel.deleteUserWorkout(at: indexSet)
+                                //need to create database for workout first
+                                //viewModel.deleteFromDb(indexSet: indexSet, list: <#T##[Exercise]#>)
                             }
                             .listRowBackground(Color.blankSpace)
                         }
@@ -97,6 +99,8 @@ struct HomeView: View {
             }
             guard let user = Auth.auth().currentUser?.uid else{return}
             print(user)
+            //print("exercises: \(viewModel.standardExerciseList.count), HomeView")
+            //print("\(viewModel.user.workoutList.count): workouts in user workouts list")
         }
     }
 }

@@ -19,7 +19,7 @@ struct KeepAppTrainingApp: App {
     
     var body: some Scene {
         WindowGroup {
-            let viewModel = AppViewModel()
+            //let viewModel = AppViewModel()
                 ContentView()
                     .environmentObject(viewModel)
         }

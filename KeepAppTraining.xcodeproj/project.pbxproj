@@ -139,7 +139,6 @@
 				C38796E72981D178007FFF50 /* GoogleService-Info.plist */,
 				C3B8211429818E8C00F8BFCA /* Assets.xcassets */,
 				C3B8211629818E8C00F8BFCA /* Preview Content */,
-				C30433A32982958000088065 /* AppViewModel.swift */,
 			);
 			path = KeepAppTraining;
 			sourceTree = "<group>";
@@ -176,6 +175,7 @@
 				C30433A5298880F600088065 /* Exercise.swift */,
 				C3FE33E8298EE8E600B6319B /* User.swift */,
 				C3FE3475299AE58B00B6319B /* MyNotes.swift */,
+				C30433A32982958000088065 /* AppViewModel.swift */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
