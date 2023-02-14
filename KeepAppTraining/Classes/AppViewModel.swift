@@ -32,7 +32,8 @@ class AppViewModel: ObservableObject{
     
     init(){
         mockdata()
-        listenToFirestore()
+        readExercisesFiresbase()
+        readWorkoutsFiresbase()
     }
     func mockdata(){
         //creates a first workout for the user and fills its list with exercises
@@ -131,7 +132,7 @@ class AppViewModel: ObservableObject{
         standardWorkoutsList.remove(atOffsets: indexSet)
     }
 //MARK: save functions
-    func listenToFirestore(){
+    func readExercisesFiresbase(){
         guard let user = Auth.auth().currentUser else {return}
         
         db.collection("users").document(user.uid).collection("exercises").addSnapshotListener{snapshot, err in
@@ -148,6 +149,31 @@ class AppViewModel: ObservableObject{
                     switch result{
                     case .success(let item) :
                         self.standardExerciseList.append(item)
+                    case .failure(let error) :
+                        print("error decoding item: \(error)")
+                    }
+                }
+                
+            }
+        }
+    }
+    func readWorkoutsFiresbase(){
+        guard let user = Auth.auth().currentUser else {return}
+        
+        db.collection("users").document(user.uid).collection("workouts").addSnapshotListener{snapshot, err in
+            guard let snapshot = snapshot else {return} //check snapshot is not nil
+            
+            if let err = err{ //check for error
+                print("Error getting document \(err)")
+            }else{
+                self.standardWorkoutsList.removeAll() //the list where you save
+                for document in snapshot.documents{ //reading docs
+                    let result = Result{
+                        try document.data(as: Workout.self)
+                    }
+                    switch result{
+                    case .success(let item) :
+                        self.standardWorkoutsList.append(item)
                     case .failure(let error) :
                         print("error decoding item: \(error)")
                     }
@@ -173,6 +199,18 @@ class AppViewModel: ObservableObject{
                 if let id = item.id,
                    let user = auth.currentUser{
                     db.collection("users").document(user.uid).collection("exercises").document(id).delete()
+                }
+            }
+        
+    }
+    func deleteWorkoutInDb(indexSet: IndexSet){
+        //standardExerciseList.remove(atOffsets: indexSet)
+        
+        for index in indexSet{
+                let item = standardExerciseList[index]
+                if let id = item.id,
+                   let user = auth.currentUser{
+                    db.collection("users").document(user.uid).collection("workouts").document(id).delete()
                 }
             }
         

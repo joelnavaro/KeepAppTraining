@@ -52,7 +52,8 @@ struct HomeView: View {
     //MARK: list with workoutlist from user
                     VStack{
                         List(){
-                            ForEach(viewModel.user.workoutList){ entry in
+                            //ForEach(viewModel.user.workoutList){ entry in also changed ondelete
+                            ForEach(viewModel.standardWorkoutsList){ entry in
                                 if let name = entry.name{
                                     NavigationLink(destination: ShowWorkoutView(entryName: name, entryExerList: entry.exercisesList), label: {
                                         if let name = entry.name{
@@ -61,7 +62,9 @@ struct HomeView: View {
                                     })
                                 }
                             }.onDelete(){ indexSet in
-                                viewModel.deleteUserWorkout(at: indexSet)
+                                viewModel.deleteStandardWorkout(at: indexSet)
+                                viewModel.deleteWorkoutInDb(indexSet: indexSet)
+                                //viewModel.deleteUserWorkout(at: indexSet)  en users list
                                 //need to create database for workout first
                                 //viewModel.deleteFromDb(indexSet: indexSet, list: <#T##[Exercise]#>)
                             }

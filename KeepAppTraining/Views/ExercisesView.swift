@@ -77,7 +77,7 @@ struct ExercisesView: View{
             //.background(Color(.init(white: 2, alpha: 0.05)))
         }//zstack
         .onAppear(){ //when this view starts, sorts a list and show
-            //viewModel.dummyDbData()
+            viewModel.dummyDbData()
             exerciseList = filterListByGroups(from: viewModel, group: buttonsMenu[Int.random(in: 0...3)])
             print("N Exercises: \(viewModel.standardExerciseList.count) ExerciseView")
         }
