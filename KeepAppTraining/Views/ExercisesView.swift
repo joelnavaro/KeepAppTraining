@@ -6,6 +6,7 @@ import FirebaseFirestoreSwift
 
 struct ExercisesView: View{
     @EnvironmentObject var viewModel: AppViewModel
+    var list : [Exercise]
     //@State var chest = [Exercise]()
     var buttonsMenu = ["arms", "chest", "back", "legs"] //names on buttons
     //@StateObject var workoutModel = Workout() //un workout
@@ -24,7 +25,7 @@ struct ExercisesView: View{
                         HStack(){
                             ForEach(buttonsMenu, id: \.self){ type in
                                 Button(action: {
-                                    exerciseList = filterListByGroups(from: viewModel, group: type)
+                                    exerciseList = filterListByGroups(from: list, group: type)
                                 }){ ButtonView(item: type.capitalized, w: 80, h: 50)}
                             }
                             .padding(3)
@@ -49,7 +50,7 @@ struct ExercisesView: View{
                         Text("Full Exercises List")
                         Divider().padding(8)
                         List(){
-                            ForEach(viewModel.standardExerciseList){ exercise in
+                            ForEach(list){ exercise in
                                 NavigationLink(destination: ShowExerciseView(exercise: exercise), label: {CellView(name: exercise.name, muscleGroup: exercise.muscleGroup)})
                             }
                             .onDelete(){ indexSet in
@@ -77,9 +78,9 @@ struct ExercisesView: View{
             //.background(Color(.init(white: 2, alpha: 0.05)))
         }//zstack
         .onAppear(){ //when this view starts, sorts a list and show
-            viewModel.dummyDbData()
-            exerciseList = filterListByGroups(from: viewModel, group: buttonsMenu[Int.random(in: 0...3)])
-            print("N Exercises: \(viewModel.standardExerciseList.count) ExerciseView")
+            //viewModel.dummyDbData()
+            exerciseList = filterListByGroups(from: list, group: buttonsMenu[Int.random(in: 0...3)])
+            print("N Exercises: \(list.count) ExerciseView")
         }
         .sheet(isPresented: $addExerSheet){
             AddExerciseView(exerciseList: exerciseList)
@@ -87,10 +88,10 @@ struct ExercisesView: View{
     }//body
     
     //MARK: shows standard list
-    func filterListByGroups(from model: AppViewModel, group: String)->[Exercise]{
+    func filterListByGroups(from model: [Exercise], group: String)->[Exercise]{
         var list = [Exercise]()
         
-        for exercise in model.standardExerciseList{
+        for exercise in model{
             if exercise.muscleGroup == group{
                 list.append(exercise)
             }
@@ -124,12 +125,12 @@ struct ButtonView: View {
 }
 
 
-struct ExercisesView_Previews: PreviewProvider {
+/*struct ExercisesView_Previews: PreviewProvider {
     @EnvironmentObject var viewModel: AppViewModel
     
     static var previews: some View {
         ExercisesView()
             .environmentObject(AppViewModel())
     }
-}
+}*/
 

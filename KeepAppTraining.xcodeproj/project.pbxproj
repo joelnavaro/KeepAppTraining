@@ -18,6 +18,7 @@
 		C38796ED2981D24C007FFF50 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = C38796EC2981D24C007FFF50 /* FirebaseFirestore */; };
 		C38796EF2981D24C007FFF50 /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = C38796EE2981D24C007FFF50 /* FirebaseFirestoreSwift */; };
 		C38796F12981D24C007FFF50 /* FirebaseFunctions in Frameworks */ = {isa = PBXBuildFile; productRef = C38796F02981D24C007FFF50 /* FirebaseFunctions */; };
+		C3A24A8F299D908A00BDDEDA /* UserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A24A8E299D908A00BDDEDA /* UserView.swift */; };
 		C3B8211129818E8500F8BFCA /* KeepAppTrainingApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3B8211029818E8500F8BFCA /* KeepAppTrainingApp.swift */; };
 		C3B8211329818E8500F8BFCA /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3B8211229818E8500F8BFCA /* ContentView.swift */; };
 		C3B8211529818E8C00F8BFCA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C3B8211429818E8C00F8BFCA /* Assets.xcassets */; };
@@ -60,6 +61,7 @@
 		C37D01B1298AD3B50007991F /* ExercisesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExercisesView.swift; sourceTree = "<group>"; };
 		C37D01B3298AD9C10007991F /* SignInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInView.swift; sourceTree = "<group>"; };
 		C38796E72981D178007FFF50 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		C3A24A8E299D908A00BDDEDA /* UserView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserView.swift; sourceTree = "<group>"; };
 		C3B8210D29818E8500F8BFCA /* KeepAppTraining.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KeepAppTraining.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C3B8211029818E8500F8BFCA /* KeepAppTrainingApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeepAppTrainingApp.swift; sourceTree = "<group>"; };
 		C3B8211229818E8500F8BFCA /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -192,6 +194,7 @@
 				C3FE34332992E70400B6319B /* AddWorkoutView.swift */,
 				C3FE34712997F89E00B6319B /* CellView.swift */,
 				C3FE34732997FFD100B6319B /* WorkoutCellView.swift */,
+				C3A24A8E299D908A00BDDEDA /* UserView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -357,6 +360,7 @@
 				C3FE3438299434C800B6319B /* Extensions.swift in Sources */,
 				C37D01B2298AD3B50007991F /* ExercisesView.swift in Sources */,
 				C37D01B4298AD9C10007991F /* SignInView.swift in Sources */,
+				C3A24A8F299D908A00BDDEDA /* UserView.swift in Sources */,
 				C3FE34742997FFD100B6319B /* WorkoutCellView.swift in Sources */,
 				C3FE34342992E70400B6319B /* AddWorkoutView.swift in Sources */,
 				C30433A42982958000088065 /* AppViewModel.swift in Sources */,

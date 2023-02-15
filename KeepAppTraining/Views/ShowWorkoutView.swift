@@ -8,10 +8,9 @@
 import SwiftUI
 
 struct ShowWorkoutView: View {
-    @EnvironmentObject var viewModel : AppViewModel
     @State var restTime = ""
     var entryName: String
-    var entryExerList: [Exercise]
+    var list: [Exercise]
     
     var body: some View {
         
@@ -30,7 +29,7 @@ struct ShowWorkoutView: View {
             }
             //MARK: List with rows for every workout
             List() {
-                ForEach(entryExerList, id: \.id) { exercise in
+                ForEach(list, id: \.id) { exercise in
                     /*Text(exercise.name)*/
                     VStack (alignment: .center){
                         WorkoutCellView(exercise: exercise)

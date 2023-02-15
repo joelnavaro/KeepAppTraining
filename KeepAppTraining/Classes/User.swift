@@ -11,6 +11,7 @@ class User: ObservableObject{
     
     var firstName: String?
     var lastName: String?
+    var profilePicture: UIImage?
     var age: Int?
     //remember to change the list from standard to user in exercise view
     //MARK: to save new exercises only added by user. but ill use the viewmodel list

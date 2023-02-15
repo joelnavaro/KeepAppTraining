@@ -22,41 +22,17 @@ struct HomeView: View {
             ZStack{
                 Color.inApp.ignoresSafeArea()
                 VStack(spacing: 8){
-                    HStack{
-                        Image(systemName: "person.fill")
-                            .resizable()//habilita cambiar de tamano
-                            .scaledToFit()//escala la imagen
-                            .padding(20)//antes de frame es para la imagen, despes, para el frame
-                            .frame(width: 150, height: 200)//define el tamano
-                            .cornerRadius(64)
-                            .background(Color.gray.opacity(2))
-                            .clipShape(Circle())//hace el frame circular
-                            .overlay(Circle().stroke(Color.blue, lineWidth: 3))//pinta borde
-                            .shadow(color: Color.blue, radius: 5)//pinta sombra
-                            .foregroundColor(.blue.opacity(10))//pinta el icono
-                        //.font(.system(size: 64))
-                        VStack{
-                            Text("User Name")
-                            Text("Some Other info")
-                        }
-                        .frame(width: 128, height: 128)
-                        .cornerRadius(64)
-                        .padding(8)
-                        Spacer()
-                    }
-                    .overlay(RoundedRectangle(cornerRadius: 64)
-                        .stroke(Color.blue, lineWidth: 3))
-                    .padding(8)
+                    UserView(user: viewModel.user)
                     //.border(Color.blue, width: 3)
                     Spacer()
     //MARK: list with workoutlist from user
                     VStack{
                         List(){
                             //ForEach(viewModel.user.workoutList){ entry in also changed ondelete
-                            ForEach(viewModel.standardWorkoutsList){ entry in
-                                if let name = entry.name{
-                                    NavigationLink(destination: ShowWorkoutView(entryName: name, entryExerList: entry.exercisesList), label: {
-                                        if let name = entry.name{
+                            ForEach(viewModel.standardWorkoutsList){ workout in
+                                if let name = workout.name{
+                                    NavigationLink(destination: ShowWorkoutView(entryName: name, list: workout.exercisesList), label: {
+                                        if let name = workout.name{
                                             CellView(name: name)
                                         }
                                     })
@@ -77,7 +53,7 @@ struct HomeView: View {
                         //update list
                     }
                     HStack{
-                        NavigationLink(destination: ExercisesView(), label: {
+                        NavigationLink(destination: ExercisesView(list: viewModel.standardExerciseList), label: {
                             ButtonView(item: "Exercises", w: 180, h: 50)
                         }).padding(2)
                         NavigationLink(destination: AddWorkoutView(), label: {
