@@ -21,9 +21,7 @@ struct AddExerciseView: View {
     @State var sets = ""
     @State var reps = ""
     @State var description = ""
-    
-    var exerciseList : [Exercise]
-    
+    @Binding var exerciseList : [Exercise]
     let groupTypes = ["Arms","Chest","Back","Legs"]
     
     var body: some View {
@@ -119,7 +117,7 @@ struct AddExerciseView: View {
                     saveEntry()
                     dismiss()
                 }, label:{
-                    Text("Save")
+                    ButtonView(item: "Save", w: 80, h: 50)
                 })
                 Spacer()
                 //.blendMode(.colorBurn)
@@ -208,8 +206,10 @@ struct ShowExerciseView: View {
                         .overlay(Rectangle().stroke(Color.blue, lineWidth: 2))
                         .cornerRadius(10)
                         .shadow(color: Color.black, radius: 3, x: 2)
-                    if exercise.description == nil{
-                        Text("No description added")
+                    if let description = exercise.description{
+                        Text(description)
+                    }else{
+                        Text("No description added.")
                     }
                 }
             }

@@ -83,7 +83,7 @@ struct ExercisesView: View{
             print("N Exercises: \(list.count) ExerciseView")
         }
         .sheet(isPresented: $addExerSheet){
-            AddExerciseView(exerciseList: exerciseList)
+            AddExerciseView(exerciseList: $exerciseList)
         }
     }//body
     

@@ -45,7 +45,7 @@ struct UserView: View {
                     Text("X Exercises saved")
                     Text("X Workouts completed")
                 }
-                .frame(width: 150, height: 150)
+                .frame(width: 150, height: 170)
                 .background(Color.blankSpace.opacity(10))
                 .cornerRadius(40)
                 .padding(8)

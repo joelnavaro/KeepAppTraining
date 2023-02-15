@@ -8,6 +8,8 @@ import FirebaseFirestoreSwift
 struct AddWorkoutView: View {
     @EnvironmentObject var viewModel: AppViewModel
     @Environment(\.dismiss) private var dismiss
+    @Binding var workoutList : [Workout]
+    var exercisesList : [Exercise]
     
     //for the name of workout
     @State var name = ""
@@ -51,7 +53,7 @@ struct AddWorkoutView: View {
                 .padding(10)
                 VStack{
                     List(){
-                        ForEach(viewModel.standardExerciseList){ exercise in
+                        ForEach(exercisesList){ exercise in
                             ZStack{
                                 WorkoutCellView(exercise: exercise, list: $itemsSelected)
                             }
@@ -69,7 +71,7 @@ struct AddWorkoutView: View {
                 .cornerRadius(10)
                 .padding(10)
             }.onAppear(){
-                newWorkout.exercisesList = viewModel.standardExerciseList
+                newWorkout.exercisesList = exercisesList
             }
         }
     }
@@ -77,7 +79,7 @@ struct AddWorkoutView: View {
         guard !name.isEmpty else {return}
         newWorkout.name = name
         newWorkout.exercisesList = itemsSelected
-        viewModel.user.workoutList.append(newWorkout)
+        workoutList.append(newWorkout)
         
         guard let user = viewModel.auth.currentUser else {return}
         do{

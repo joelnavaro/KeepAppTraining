@@ -56,7 +56,7 @@ struct HomeView: View {
                         NavigationLink(destination: ExercisesView(list: viewModel.standardExerciseList), label: {
                             ButtonView(item: "Exercises", w: 180, h: 50)
                         }).padding(2)
-                        NavigationLink(destination: AddWorkoutView(), label: {
+                        NavigationLink(destination: AddWorkoutView(workoutList: $viewModel.standardWorkoutsList, exercisesList: viewModel.standardExerciseList), label: {
                             ButtonView(item: "Create Workout", w: 180, h: 50)
                         }).padding(2)
                     }
