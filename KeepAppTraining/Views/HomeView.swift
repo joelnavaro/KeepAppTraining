@@ -10,12 +10,10 @@ import SwiftUI
 import FirebaseAuth
 import FirebaseCore
 import FirebaseFirestore
-//podria llamarse MainView
+
 struct HomeView: View {
     @EnvironmentObject var viewModel: AppViewModel
-    //workout model to show in HomeView
-    //var workoutModel = [Workout]()
-    @State var nextPage = false
+    //@State var nextPage = false
     
     var body: some View{
         NavigationView{
@@ -38,11 +36,8 @@ struct HomeView: View {
                                     })
                                 }
                             }.onDelete(){ indexSet in
-                                viewModel.deleteStandardWorkout(at: indexSet)
+                                //viewModel.deleteStandardWorkout(at: indexSet)
                                 viewModel.deleteWorkoutInDb(indexSet: indexSet)
-                                //viewModel.deleteUserWorkout(at: indexSet)  en users list
-                                //need to create database for workout first
-                                //viewModel.deleteFromDb(indexSet: indexSet, list: <#T##[Exercise]#>)
                             }
                             .listRowBackground(Color.blankSpace)
                         }
@@ -73,6 +68,7 @@ struct HomeView: View {
             }
         }
         .onAppear(){
+            viewModel.readWorkoutsFiresbase()
             //print("exercise list: \(workoutModel.exercisesList.count)")
             if Auth.auth().currentUser == nil {
                 //viewModel.signedIn = true

@@ -33,7 +33,7 @@ class AppViewModel: ObservableObject{
     init(){
         mockdata()
         readExercisesFiresbase()
-        readWorkoutsFiresbase()
+        //readWorkoutsFiresbase()
     }
     func mockdata(){
         //creates a first workout for the user and fills its list with exercises
@@ -190,8 +190,8 @@ class AppViewModel: ObservableObject{
             print("error saving to DB")
         }
     }
-    //for full list
-    func deleteInDb(indexSet: IndexSet){
+    //for full list. change name to delete exercise in db
+    func deleteExerciseInDb(indexSet: IndexSet){
         //standardExerciseList.remove(atOffsets: indexSet)
         
         for index in indexSet{
@@ -207,7 +207,7 @@ class AppViewModel: ObservableObject{
         //standardExerciseList.remove(atOffsets: indexSet)
         
         for index in indexSet{
-                let item = standardExerciseList[index]
+                let item = standardWorkoutsList[index]
                 if let id = item.id,
                    let user = auth.currentUser{
                     db.collection("users").document(user.uid).collection("workouts").document(id).delete()

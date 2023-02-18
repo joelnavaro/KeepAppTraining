@@ -54,7 +54,7 @@ struct ExercisesView: View{
                                 NavigationLink(destination: ShowExerciseView(exercise: exercise), label: {CellView(name: exercise.name, muscleGroup: exercise.muscleGroup)})
                             }
                             .onDelete(){ indexSet in
-                                viewModel.deleteInDb(indexSet: indexSet)
+                                viewModel.deleteExerciseInDb(indexSet: indexSet)
                             }
                             .listRowBackground(Color.blankSpace)
                         }

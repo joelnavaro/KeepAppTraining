@@ -6,9 +6,11 @@
 //
 
 import SwiftUI
+import FirebaseFirestore
+import FirebaseFirestoreSwift
 
-struct Workout: Identifiable, Codable{
-    var id = UUID()
+struct Workout: Identifiable, Equatable, Codable{
+    @DocumentID var id : String?
     var name : String?
     //image for the workoutview
     //var image : Image or UIImage
