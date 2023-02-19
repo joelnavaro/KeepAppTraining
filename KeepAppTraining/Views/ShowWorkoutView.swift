@@ -52,18 +52,16 @@ struct ShowWorkoutView: View {
                     .font(.system(size: 20, weight: .bold))
                     .opacity(0.80)
             }*/
-            //MARK: List with rows for every workout
+            //MARK: List with rows for every exercise
             List(){
-                ForEach(list, id: \.id) { exercise in
-                    VStack (alignment: .center){
-                        WorkoutCellView(exercise: exercise, restTime: $restTime)
-                            .cornerRadius(25)
-                        /*Text("Define SetRow")
-                        RoundedRectangle(cornerRadius: 50).fill(.gray)
-                            .frame(width: 350, height: 60)*/
+                ForEach(list, id: \.name) { exercise in
+                    WorkoutCellView(exercise: exercise, restTime: $restTime).cornerRadius(25)
+                }
+                .onAppear(){
+                    for item in list{
+                        print("\(item.name)")
                     }
                 }
-                .padding(-5)
             }
             .padding(-15)
         }

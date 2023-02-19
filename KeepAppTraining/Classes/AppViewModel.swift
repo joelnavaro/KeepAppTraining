@@ -160,20 +160,24 @@ class AppViewModel: ObservableObject{
     func readWorkoutsFiresbase(){
         guard let user = Auth.auth().currentUser else {return}
         
-        db.collection("users").document(user.uid).collection("workouts").addSnapshotListener{snapshot, err in
+        db.collection("users").document(user.uid).collection("workouts").addSnapshotListener{ snapshot, err in
             guard let snapshot = snapshot else {return} //check snapshot is not nil
             
             if let err = err{ //check for error
                 print("Error getting document \(err)")
             }else{
                 self.standardWorkoutsList.removeAll() //the list where you save
-                for document in snapshot.documents{ //reading docs
+                for document in snapshot.documents{//reading docs
+                    //convert every result into workout
                     let result = Result{
                         try document.data(as: Workout.self)
                     }
                     switch result{
                     case .success(let item) :
                         self.standardWorkoutsList.append(item)
+                        for a in item.exercisesList{
+                            print("content in list: \(String(describing: item.name)) : \(a.name)")
+                        }
                     case .failure(let error) :
                         print("error decoding item: \(error)")
                     }

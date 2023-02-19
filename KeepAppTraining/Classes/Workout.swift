@@ -22,10 +22,4 @@ struct Workout: Identifiable, Equatable, Codable{
     //a workout is a list of exercises
     var exercisesList = [Exercise]()//an empty list, doesnt need to be declared in init
     //var exercisesList2 = [Exercise]() //why not like this?
-    
-    
-    
-    func dummyData(){
-        
-    }
 }

@@ -29,10 +29,8 @@ struct HomeView: View {
                             //ForEach(viewModel.user.workoutList){ entry in also changed ondelete
                             ForEach(viewModel.standardWorkoutsList){ workout in
                                 if let name = workout.name{
-                                    NavigationLink(destination: ShowWorkoutView(entryName: name, list: workout.exercisesList), label: {
-                                        if let name = workout.name{
-                                            CellView(name: name)
-                                        }
+                                    NavigationLink(destination: ShowWorkoutView(entryName: name, list: workout.exercisesList),
+                                                   label: { CellView(name: name)
                                     })
                                 }
                             }.onDelete(){ indexSet in

@@ -79,6 +79,7 @@ struct AddWorkoutView: View {
         guard !name.isEmpty else {return}
         newWorkout.name = name
         newWorkout.exercisesList = itemsSelected
+        
         workoutList.append(newWorkout)
         
         guard let user = viewModel.auth.currentUser else {return}
@@ -106,7 +107,7 @@ struct AddWorkoutView: View {
     }
     
     struct WorkoutCellView: View{
-        @EnvironmentObject var viewModel: AppViewModel
+        //@EnvironmentObject var viewModel: AppViewModel
         
         var exercise : Exercise
         @Binding var list: [Exercise]
@@ -117,20 +118,23 @@ struct AddWorkoutView: View {
                 Text(exercise.name)
                 Spacer()
                 Button(action: {
-                    isChecked.toggle()
-                    
                     if !list.contains(exercise){
                         list.append(exercise)
+                        isChecked.toggle()
+                        print("name: \(exercise.name)")
+                        print("name: \(String(describing: exercise.id))")
                     }else{
                         //list.removeAll(where: {viewModel.standardExerciseList.contains($0)})
                         if let index = list.firstIndex(of: exercise) {
                             list.remove(at: index)
+                            isChecked.toggle()
+                            print("name: \(exercise.name)")
+                            print("name: \(String(describing: exercise.id))")
                         }
-                      //  list.removeAll(where: <#T##(Exercise) throws -> Bool#>)
                     }
                     print("preliminar has: \(list.count)")
                 }, label: {
-                    Image(systemName: isChecked ? "checkmark.square" : "square")
+                    Image(systemName: isChecked ? "checkmark.square" : "square").font(.system(size: 30))
                 })
             }
         }
