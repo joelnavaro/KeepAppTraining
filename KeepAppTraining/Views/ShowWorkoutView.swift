@@ -27,7 +27,7 @@ struct ShowWorkoutView: View {
             //MARK: rest time bar
             HStack{
                 Spacer(minLength: 25)
-                Text("Rest time: ")
+                Text("Rest time in seconds: ")
                 /*Button(action: {
                     
                 }, label: {
