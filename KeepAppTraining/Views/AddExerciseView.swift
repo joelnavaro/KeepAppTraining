@@ -39,7 +39,7 @@ struct AddExerciseView: View {
                         .padding(.bottom, 50)
                     Text("Add exercise (Title)")
                 }
-    //MARK: Name and group
+                //MARK: Name and group
                 HStack{
                     ZStack{
                         Color.blankSpace
@@ -63,8 +63,7 @@ struct AddExerciseView: View {
                             .shadow(color: Color.black, radius: 3, x: 2)
                         Text("Muscle Group: ")
                     }
-    //MARK: change the textview for a dropdown menu
-                    //TextField("Muscle Group...", text: $mGroup).background(Color.white)
+                    
                     Picker("Muscle Group", selection: $mGroup){
                         ForEach(groupTypes, id: \.self){
                             Text($0)
@@ -97,7 +96,7 @@ struct AddExerciseView: View {
                     TextField("Repetitions...", text: $reps).background(Color.white)
                 }
                 .padding(15)
-    //MARK: Description
+                //MARK: Description
                 ZStack {
                     Color.blankSpace
                         .frame(width: 150, height: 30)
@@ -137,11 +136,11 @@ struct AddExerciseView: View {
         
         if let newSet = newSet, let newReps = newReps {
             let entry = Exercise(name: name, muscleGroup: mGroup, sets: newSet, repetitions: newReps, description: description)
-            //viewModel.user.exerciseList.append(entry)
-            //viewModel.standardExerciseList.append(entry) // wont need this once i can read from firestore
             guard let user = viewModel.auth.currentUser else {return}
             do{
                 _ = try viewModel.db.collection("users").document(user.uid).collection("exercises").addDocument(from: entry)
+                viewModel.standardExerciseList.append(entry)
+                print("Added entry to exercises")
             } catch {
                 print("error saving to DB")
             }
@@ -152,8 +151,6 @@ struct AddExerciseView: View {
 }//addExerciseView
 struct ShowExerciseView: View {
     let exercise : Exercise
-    //var test : String?
-    //@State var test2 = ""
     
     var body: some View {
         ZStack{

@@ -10,6 +10,7 @@ import SwiftUI
 struct CellView: View{
     var name: String
     var muscleGroup: String?
+    var extra : Int?
     
     var body: some View{
         HStack{
@@ -20,13 +21,18 @@ struct CellView: View{
             }else{
                 Text("")
             }
+            if let extra = extra{
+                Text("\(extra) Exercises")
+            }else{
+                Text("")
+            }
         }
     }
 }
 
 struct CellView_Previews: PreviewProvider {
     @EnvironmentObject var viewModel: AppViewModel
-
+    
     
     static var previews: some View {
         CellView(name: "Test Workout")

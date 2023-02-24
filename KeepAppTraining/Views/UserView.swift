@@ -1,18 +1,11 @@
-//
-//  UserView.swift
-//  KeepAppTraining
-//
-//  Created by Joel Pena Navarro on 2023-02-15.
-//
 
 import SwiftUI
 import PhotosUI
 
 struct UserView: View {
-    @StateObject var user : User
-    //@State var name = ""
-    //var age = 0
-    //var workouts = 0
+    @ObservedObject var user : User
+    var exercises : Int
+    var workouts : Int
     @State var selectedItems : [PhotosPickerItem] = []
     @State var data : Data?
     
@@ -25,17 +18,16 @@ struct UserView: View {
                 ZStack{
                     if user.profilePicture == nil{
                         Image(systemName: "person.fill")
-                            .resizable()//habilita cambiar de tamano
-                            .scaledToFit()//escala la imagen
-                            .padding(20)//antes de frame es para la imagen, despes, para el frame
-                            .frame(width: 150, height: 200)//define el tamano
+                            .resizable()
+                            .scaledToFit()
+                            .padding(20)
+                            .frame(width: 150, height: 200)
                             .cornerRadius(64)
                             .background(Color.blankSpace.opacity(2))
-                            .clipShape(Circle())//hace el frame circular
-                            .overlay(Circle().stroke(Color.blue, lineWidth: 3))//pinta borde
-                            .shadow(color: Color.blue, radius: 5)//pinta sombra
-                            .foregroundColor(.blue.opacity(10))//pinta el icono
-                        //.font(.system(size: 64))
+                            .clipShape(Circle())
+                            .overlay(Circle().stroke(Color.blue, lineWidth: 3))
+                            .shadow(color: Color.blue, radius: 5)
+                            .foregroundColor(.blue.opacity(10))
                     }else{
                         if let image = user.profilePicture{
                             Image(uiImage: image)
@@ -47,12 +39,6 @@ struct UserView: View {
                                 .shadow(color: Color.blue, radius: 5)
                         }
                     }
-                    /*VStack{
-                        if let data = data,
-                            let uiimage = UIImage(data: data){ //convierte a uiimage
-                            Image(uiImage: uiimage).resizable() //haz un image view con el uiimage
-                        }
-                    }*/
                     PhotosPicker(
                         selection: $selectedItems,
                         maxSelectionCount: 1,
@@ -81,24 +67,21 @@ struct UserView: View {
                             }
                         }
                     }
-                    /*Button(action: {
-                        //Picker that allows to select a different picture and shows in user picture
-                    }, label: {
-                        Image(systemName: "photo.on.rectangle.angled").font(.system(size: 20)).foregroundColor(Color.black)
-                    }).padding(.leading, 100)
-                        .padding(.top, 100)*/
-                    
                 }
                 VStack{
                     if let name = user.firstName{
                         Text("Name: \(name)")
                     }
-                    Text("\(user.workoutCompleted) Worouts done")
-                    Text("\(user.exercisesCreated) Exercises saved")
-                    Text("X Workouts completed")
+                    Divider().padding(1)
+                    Text("\(exercises) Exercises saved")
+                    Divider().padding(1)
+                    Text("\(workouts) Workouts saved")
+                    Divider().padding(1)
+                    Text("\(user.workoutCompleted) Workouts completed")
+                    Divider().padding(1)
                 }
                 .frame(width: 160, height: 170)
-                .background(Color.blankSpace.opacity(10))
+                .background(Color.blankSpace.opacity(10), in: RoundedRectangle(cornerRadius: 20, style: .continuous))
                 .cornerRadius(40)
                 .padding(8)
                 Spacer()
@@ -108,7 +91,7 @@ struct UserView: View {
 }
 
 /*struct UserView_Previews: PreviewProvider {
-    static var previews: some View {
-        UserView()
-    }
-}*/
+ static var previews: some View {
+ UserView()
+ }
+ }*/

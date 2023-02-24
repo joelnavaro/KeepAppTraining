@@ -1,25 +1,19 @@
-//
-//  WorkoutCellView.swift
-//  KeepAppTraining
-//
-//  Created by Joel Pena Navarro on 2023-02-11.
-//
 
 import SwiftUI
 
 struct WorkoutCellView: View {
     var exercise : Exercise
-    @Binding var restTime : Int //needs to be state cause its gonna decrease
-    //have to change the state rest time, it only reads the first Int, gonna usecountdown instead
+    @Binding var restTime : Int 
     var timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
     @State var timerCountDown = 30
     @State var timerRunning = false
     @State private var animationAmmount = 1.0
-    @State private var animPause = 0.0
+    @State private var animPauseBtn = 0.0
     @State var training = false
     @State var setsCounter = 0
     @State var repsCounter = 0
-    @State var exerciseCompleted = false
+    @State var isCompleted = false
+    @Binding var completed : Int
     
     var body: some View {
         ZStack{
@@ -35,49 +29,36 @@ struct WorkoutCellView: View {
                 }
                 VStack{                    //animation for training
                     Button(action: {
-                        setsCounter += 1
-                        if setsCounter == exercise.sets{ //when exercise completed
-                            exerciseCompleted = true
+                        //logic()
+                        withAnimation{
+                            training.toggle()
                         }
-                        repsCounter = 0 //when a set is completed turn sets to 0
-                        
-                        if training{ //animation for the button
-                            animationAmmount = 2.0
-                        }else{
-                            animationAmmount = 1.0
-                        }
-                        training.toggle()
                     }, label: {
                         Image(systemName: timerRunning ? "hand.raised.fill" : "figure.strengthtraining.traditional").font(.system(size: 40))
                             .clipShape(Rectangle())
                             .overlay(
                                 Rectangle()
                                     .stroke(.blue)
-                                    .scaleEffect(1.0)
+                                    .scaleEffect(training ? 2 : 1)
                                     .opacity(2-animationAmmount)
                                     .animation(
                                         .easeInOut(duration: 1)
-                                        .repeatForever(autoreverses: false),
-                                        value: animationAmmount)
+                                        .repeatForever(autoreverses: true), value: training ? 2 : 1)
                             )
-                            /*.onAppear{
-                                animationAmmount = 2
-                            }*/
                     })
-                    HStack{ //si timer=0 y reps menor que ejerReps, print an icon
+                    HStack{
                         if timerCountDown == 0 && repsCounter < exercise.repetitions{
                             Text("Reps done: ")
                             ForEach(0..<repsCounter, id: \.self){_ in
-                                Text("🏋️‍♂️")
+                                Text("🏋️‍♂️")//.animation(.easeInOut(duration: 2))
                             }
                         }
                     }
-                    //si sets menor que ejerSets y sets no es 0, imprime un set completed
                     if setsCounter < exercise.sets && setsCounter != 0{
                         ForEach(0..<setsCounter, id: \.self){_ in
                             Text("Sets done: 🥇")
                         }
-                    }else if setsCounter == exercise.sets{ //todas las sets hechas
+                    }else if isCompleted{
                         Text("Exercise Completed 🏆")
                     }
                 }
@@ -85,36 +66,53 @@ struct WorkoutCellView: View {
         }.frame(width: 350, height: 250)
         HStack{
             //animation for resting
-            Button(action: {
-                timerCountDown = restTime //iguala timer a rest time
-                timerRunning.toggle() //timer run = true
-                withAnimation{
-                    animPause += 360
-                }
-                animationAmmount = 0.0
-                repsCounter += 1  //aumenta un rep cuando clickes
-            }, label: {
-                Image(systemName: timerRunning ? "pause.rectangle" : "play.rectangle").font(.system(size: 30))
-                    .clipShape(Rectangle())
-                    .rotation3DEffect(.degrees(animPause), axis: (x: 0, y: 1, z: 0))
-            }).padding(15)
-            Spacer()
-            Text("⏱ \(timerCountDown)") //timer
-                .onReceive(timer){ _ in
-                    if timerCountDown > 0 && timerRunning{
-                        timerCountDown -= 1
-                    }else{
-                        timerRunning = false
+            if !isCompleted{
+                Button(action: {
+                    timerCountDown = restTime
+                    withAnimation{
+                        timerRunning.toggle()
+                        animPauseBtn += 360
                     }
-                }
-                .font(.system(size: 20, weight: .bold))
-                .opacity(0.80)
+                    repsCounter += 1
+                    logic()
+                }, label: {
+                    Image(systemName: timerRunning ? "pause.rectangle" : "play.rectangle").font(.system(size: 30))
+                        .clipShape(Rectangle())
+                        .rotation3DEffect(.degrees(animPauseBtn), axis: (x: 0, y: 1, z: 0))
+                }).padding(8)
+                
+                Spacer()
+                Text("⏱ \(timerCountDown)") //timer
+                    .onReceive(timer){ _ in
+                        if timerCountDown > 0 && timerRunning{
+                            timerCountDown -= 1
+                        }else{
+                            timerRunning = false
+                        }
+                    }
+                    .font(.system(size: 20, weight: .bold))
+                    .opacity(0.80)
+                    .scaleEffect(timerRunning ? 2 : 1)
+                    .animation(.easeInOut, value: 1)
+                    .padding(.trailing, 50)
+            }else{
+                Text("Completed 🏆").font(.system(size: 30))
+            }
+        }
+    }
+    func logic(){
+        if repsCounter == exercise.repetitions{
+            setsCounter += 1
+            repsCounter = 0 //when a set is completed turn sets to 0
+        }else if setsCounter == exercise.sets{ //when exercise completed
+            isCompleted = true
+            completed += 1
         }
     }
 }
 
 /*struct WorkoutCellView_Previews: PreviewProvider {
-    static var previews: some View {
-        WorkoutCellView(exercise: Exercise(name: "Test", muscleGroup: "Test", sets: 3, repetitions: 10))
-    }
-}*/
+ static var previews: some View {
+ WorkoutCellView(exercise: Exercise(name: "Test", muscleGroup: "Test", sets: 3, repetitions: 10))
+ }
+ }*/

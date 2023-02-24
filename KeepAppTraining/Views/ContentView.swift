@@ -14,20 +14,19 @@ import FirebaseFirestore
 struct ContentView: View {
     
     @EnvironmentObject var viewModel: AppViewModel
-    //este workout solo sale en contentview(), no en overview
-    // CV es la app y lo demas son solo views
-    //@StateObject var workout = Workout()
     
     var body: some View {
         VStack {
             NavigationView{
-                if viewModel.userCreated{
+                if viewModel.signedIn{
                     VStack{
                         HomeView()
                     }
                 }else{
                     SignInView()
                 }
+            }.onAppear{
+                viewModel.signedIn = viewModel.userCreated
             }
         }
     }

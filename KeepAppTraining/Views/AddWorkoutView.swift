@@ -10,15 +10,8 @@ struct AddWorkoutView: View {
     @Environment(\.dismiss) private var dismiss
     @Binding var workoutList : [Workout]
     var exercisesList : [Exercise]
-    
-    //for the name of workout
     @State var name = ""
-    
-    //@State var isChecked : Bool = false
-    //for selected items that are going to workout list
     @State var itemsSelected = [Exercise]()
-    
-    //for the newworkout about to be created
     @State var newWorkout = Workout()
     
     var body: some View {
@@ -27,7 +20,7 @@ struct AddWorkoutView: View {
             VStack{
                 ZStack{
                     Color.blankSpace
-                        
+                    
                     TextField("Workout's name: ", text: $name)
                 }
                 .frame(width: 200, height: 50)
@@ -53,10 +46,14 @@ struct AddWorkoutView: View {
                 .padding(10)
                 VStack{
                     List(){
-                        ForEach(exercisesList){ exercise in
-                            ZStack{
-                                WorkoutCellView(exercise: exercise, list: $itemsSelected)
+                        Section{
+                            ForEach(exercisesList){ exercise in
+                                ZStack{
+                                    WorkoutCellView(exercise: exercise, list: $itemsSelected)
+                                }
                             }
+                        }header: {
+                            Text("Elegible Exercises.")
                         }
                     }
                     Button(action: {
@@ -66,12 +63,11 @@ struct AddWorkoutView: View {
                         
                     })
                 }
-                //.navigationTitle("\(selectedRows.count) Exercises selected")
                 .navigationTitle("Exercises selected")
                 .cornerRadius(10)
                 .padding(10)
             }.onAppear(){
-                newWorkout.exercisesList = exercisesList
+                viewModel.readExercisesFiresbase()
             }
         }
     }
@@ -88,12 +84,7 @@ struct AddWorkoutView: View {
         } catch {
             print("error saving to DB")
         }
-        //checking if it was added to lists
         dismiss()
-        print("Model has: \(viewModel.user.workoutList.count)")
-        for workout in viewModel.user.workoutList{
-            print("workout \(workout) has: \(workout.exercisesList.count) exercises")
-        }
     }
     
     func select(item: Exercise){
@@ -107,8 +98,6 @@ struct AddWorkoutView: View {
     }
     
     struct WorkoutCellView: View{
-        //@EnvironmentObject var viewModel: AppViewModel
-        
         var exercise : Exercise
         @Binding var list: [Exercise]
         @State var isChecked = false
@@ -124,7 +113,6 @@ struct AddWorkoutView: View {
                         print("name: \(exercise.name)")
                         print("name: \(String(describing: exercise.id))")
                     }else{
-                        //list.removeAll(where: {viewModel.standardExerciseList.contains($0)})
                         if let index = list.firstIndex(of: exercise) {
                             list.remove(at: index)
                             isChecked.toggle()
@@ -143,10 +131,10 @@ struct AddWorkoutView: View {
 }
 
 /*struct AddWorkoutView_Previews: PreviewProvider {
-    @EnvironmentObject var viewModel: AppViewModel
-    
-    static var previews: some View {
-        AddWorkoutView()
-            .environmentObject(AppViewModel())
-    }
-}*/
+ @EnvironmentObject var viewModel: AppViewModel
+ 
+ static var previews: some View {
+ AddWorkoutView()
+ .environmentObject(AppViewModel())
+ }
+ }*/

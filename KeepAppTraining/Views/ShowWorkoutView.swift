@@ -8,19 +8,18 @@
 import SwiftUI
 
 struct ShowWorkoutView: View {
+    @Environment(\.dismiss) private var dismiss
     @State var restTime = 0
     var entryName: String
     var list: [Exercise]
-    
     var timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
-    
+    @State var counter = 0
+    @Binding var done : Int
     /*var date : String{
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateStyle = .medium
-        return dateFormatter.string(from: <#T##Date#>)
-    }*/
-    @State var timerCountDown = 10
-    @State var timerRunning = false
+     let dateFormatter = DateFormatter()
+     dateFormatter.dateStyle = .medium
+     return dateFormatter.string(from: <#T##Date#>)
+     }*/
     
     var body: some View {
         VStack{
@@ -28,34 +27,19 @@ struct ShowWorkoutView: View {
             HStack{
                 Spacer(minLength: 25)
                 Text("Rest time in seconds: ")
-                /*Button(action: {
-                    
-                }, label: {
-                    TextField("Rest inbetwen sets", text: $restTime).keyboardType(.numberPad)
-                })*/
+                
                 TextField("Rest inbetwen sets", value: $restTime, format: .number)
                     .textFieldStyle(.roundedBorder)
                     .padding()
             }
-            /*VStack{
-                //esto necesita boton que cambie el running a true y boton que cambie el cowntdown a el tiempo deseado
-                Text("\(timerCountDown)")
-                    .onReceive(timer){ _ in
-                        //si el timer mayor que cero y running, decrease countDown(restTime)
-                        if timerCountDown > 0 && timerRunning{
-                            timerCountDown -= 1
-                        }else{
-                            //Si no, para el timer
-                            timerRunning = false
-                        }
-                    }
-                    .font(.system(size: 20, weight: .bold))
-                    .opacity(0.80)
-            }*/
+            VStack{
+                Text("Exercises Completed: \(counter)")
+            }
+            
             //MARK: List with rows for every exercise
             List(){
                 ForEach(list, id: \.name) { exercise in
-                    WorkoutCellView(exercise: exercise, restTime: $restTime).cornerRadius(25)
+                    WorkoutCellView(exercise: exercise, restTime: $restTime, completed: $counter).cornerRadius(25)
                 }
                 .onAppear(){
                     for item in list{
@@ -64,17 +48,27 @@ struct ShowWorkoutView: View {
                 }
             }
             .padding(-15)
+            Button(action: {
+                if counter == list.count{
+                    done += 1
+                    dismiss()
+                }else{
+                    dismiss()
+                }
+            }, label: {
+                ButtonView(item: "Finish", w: 100, h: 40)
+            })
         }
-        .navigationTitle("\(entryName)") //the name of the workoutentry from user list
+        .navigationTitle("\(entryName)")
     }
 }
 
 /*struct WorkoutView_Previews: PreviewProvider {
-    @EnvironmentObject var viewModel: AppViewModel
-    var entry = Workout(name: "Preview", sets: 3, repetitions: 10)
-    
-    static var previews: some View {
-        WorkoutView(workoutEntry: entry )
-            .environmentObject(AppViewModel())
-    }
-}*/
+ @EnvironmentObject var viewModel: AppViewModel
+ var entry = Workout(name: "Preview", sets: 3, repetitions: 10)
+ 
+ static var previews: some View {
+ WorkoutView(workoutEntry: entry )
+ .environmentObject(AppViewModel())
+ }
+ }*/

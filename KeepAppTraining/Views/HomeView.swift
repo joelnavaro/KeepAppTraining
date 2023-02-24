@@ -13,43 +13,46 @@ import FirebaseFirestore
 
 struct HomeView: View {
     @EnvironmentObject var viewModel: AppViewModel
-    //@State var nextPage = false
+    @State var completedWorkout = 0
     
     var body: some View{
         NavigationView{
             ZStack{
                 Color.inApp.ignoresSafeArea()
                 VStack(spacing: 8){
-                    UserView(user: viewModel.user)
+                    UserView(user: viewModel.user, exercises: viewModel.standardExerciseList.count,
+                             workouts: viewModel.standardWorkoutsList.count)
                     //.border(Color.blue, width: 3)
                     Spacer()
-    //MARK: list with workoutlist from user
+                    //MARK: Workout List
                     VStack{
                         List(){
-                            //ForEach(viewModel.user.workoutList){ entry in also changed ondelete
-                            ForEach(viewModel.standardWorkoutsList){ workout in
-                                if let name = workout.name{
-                                    NavigationLink(destination: ShowWorkoutView(entryName: name, list: workout.exercisesList),
-                                                   label: { CellView(name: name)
-                                    })
+                            Section{
+                                ForEach(viewModel.standardWorkoutsList){ workout in
+                                    if let name = workout.name{
+                                        NavigationLink(destination: ShowWorkoutView(entryName: name, list: workout.exercisesList, done: $completedWorkout),
+                                                       label: { CellView(name: name, extra: workout.exercisesList.count)
+                                        })
+                                    }
+                                }.onDelete(){ indexSet in
+                                    viewModel.deleteWorkoutInDb(indexSet: indexSet)
                                 }
-                            }.onDelete(){ indexSet in
-                                //viewModel.deleteStandardWorkout(at: indexSet)
-                                viewModel.deleteWorkoutInDb(indexSet: indexSet)
+                                .listRowBackground(Color.blankSpace)
+                            }header: {
+                                Text("List with all workouts.")
                             }
-                            .listRowBackground(Color.blankSpace)
                         }
+                        
                     }
                     .cornerRadius(25)
                     .padding(10)
-                    .onAppear(){
-                        //update list
-                    }
+                    
                     HStack{
                         NavigationLink(destination: ExercisesView(list: viewModel.standardExerciseList), label: {
                             ButtonView(item: "Exercises", w: 180, h: 50)
                         }).padding(2)
-                        NavigationLink(destination: AddWorkoutView(workoutList: $viewModel.standardWorkoutsList, exercisesList: viewModel.standardExerciseList), label: {
+                        NavigationLink(destination: AddWorkoutView(workoutList: $viewModel.standardWorkoutsList, exercisesList: viewModel.standardExerciseList),
+                                       label: {
                             ButtonView(item: "Create Workout", w: 180, h: 50)
                         }).padding(2)
                     }
@@ -67,15 +70,17 @@ struct HomeView: View {
         }
         .onAppear(){
             viewModel.readWorkoutsFiresbase()
-            //print("exercise list: \(workoutModel.exercisesList.count)")
+            viewModel.readExercisesFiresbase()
+            
+            if completedWorkout == 1 {
+                viewModel.user.workoutCompleted += 1
+            }
             if Auth.auth().currentUser == nil {
-                //viewModel.signedIn = true
                 viewModel.signInAnonymously()
             }
-            guard let user = Auth.auth().currentUser?.uid else{return}
+            guard let user = Auth.auth().currentUser?.uid else {return}
             print(user)
             //print("exercises: \(viewModel.standardExerciseList.count), HomeView")
-            //print("\(viewModel.user.workoutList.count): workouts in user workouts list")
         }
     }
 }

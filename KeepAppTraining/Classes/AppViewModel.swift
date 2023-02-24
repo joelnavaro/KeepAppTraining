@@ -1,9 +1,3 @@
-//
-//  AppViewModel.swift
-//  KeepAppTraining
-//
-//  Created by Joel Pena Navarro on 2023-01-26.
-//
 
 import Foundation
 import FirebaseAuth
@@ -19,7 +13,6 @@ class AppViewModel: ObservableObject{
     @Published var signedIn = false
     
     @Published var user = User()
-//MARK: standard lists for showing content and anon users
     @Published var standardExerciseList = [Exercise]()
     @Published var standardWorkoutsList = [Workout]()
     
@@ -31,13 +24,13 @@ class AppViewModel: ObservableObject{
     }
     
     init(){
-        mockdata()
-        readExercisesFiresbase()
+        //readExercisesFiresbase()
         //readWorkoutsFiresbase()
+        //dummyDbData()
     }
-    func mockdata(){
-        //creates a first workout for the user and fills its list with exercises
-        var firstWorkout = Workout(name: "User's First Workout")
+    func dummyWorkout(){
+        //creates a first workout for the user
+        var firstWorkout = Workout(id: "abc", name: "User's First Workout")
         firstWorkout.exercisesList.append(Exercise(name: "Cable Triceps Pushdown", muscleGroup: "arms", sets: 8,repetitions: 8))
         firstWorkout.exercisesList.append(Exercise(name: "Biceps curl", muscleGroup: "arms", sets: 8,repetitions: 8))
         firstWorkout.exercisesList.append(Exercise(name: "Cable Chest Flys", muscleGroup: "chest", sets: 4,repetitions: 10))
@@ -46,27 +39,17 @@ class AppViewModel: ObservableObject{
         firstWorkout.exercisesList.append(Exercise(name: "Lat Pull-Down", muscleGroup: "back", sets: 4,repetitions: 6))
         firstWorkout.exercisesList.append(Exercise(name: "Back Squat", muscleGroup: "legs", sets: 4,repetitions: 8))
         firstWorkout.exercisesList.append(Exercise(name: "Front Squat", muscleGroup: "legs", sets: 4,repetitions: 8))
-        
-        
-        user.workoutList.append(firstWorkout)
-    }
-    func dummyDbData(){
-        let a = Exercise(name: "Cable Triceps Pushdown", muscleGroup: "arms", sets: 8,repetitions: 8)
-        let b = Exercise(name: "Biceps curl", muscleGroup: "arms", sets: 8,repetitions: 8)
-        let c = Exercise(name: "Cable Chest Flys", muscleGroup: "chest", sets: 4,repetitions: 10)
-        let d = Exercise(name: "Incline Bench Press", muscleGroup: "chest", sets: 4,repetitions: 10)
-        let e = Exercise(name: "Back extension", muscleGroup: "back", sets: 4,repetitions: 6)
-        let f = Exercise(name: "Lat Pull-Down", muscleGroup: "back", sets: 4,repetitions: 6)
-        let g = Exercise(name: "Back Squat", muscleGroup: "legs", sets: 4,repetitions: 8)
-        let h = Exercise(name: "Front Squat", muscleGroup: "legs", sets: 4,repetitions: 8)
-        saveToFirestore(exercise: a)
-        saveToFirestore(exercise: b)
-        saveToFirestore(exercise: c)
-        saveToFirestore(exercise: d)
-        saveToFirestore(exercise: e)
-        saveToFirestore(exercise: f)
-        saveToFirestore(exercise: g)
-        saveToFirestore(exercise: h)
+        standardWorkoutsList.append(firstWorkout)    }
+    func dummyExercises(){
+        //creates exercises for the user user
+        standardExerciseList.append(Exercise(id: "abc", name: "Cable Triceps Pushdown", muscleGroup: "arms", sets: 8,repetitions: 8))
+        standardExerciseList.append(Exercise(id: "def", name: "Biceps curl", muscleGroup: "arms", sets: 8,repetitions: 8))
+        standardExerciseList.append(Exercise(id: "ghi", name: "Cable Chest Flys", muscleGroup: "chest", sets: 4,repetitions: 10))
+        standardExerciseList.append(Exercise(id: "jkl", name: "Incline Bench Press", muscleGroup: "chest", sets: 4,repetitions: 10))
+        standardExerciseList.append(Exercise(id: "mno", name: "Back extension", muscleGroup: "back", sets: 4,repetitions: 6))
+        standardExerciseList.append(Exercise(id: "pqr", name: "Lat Pull-Down", muscleGroup: "back", sets: 4,repetitions: 6))
+        standardExerciseList.append(Exercise(id: "stw", name: "Back Squat", muscleGroup: "legs", sets: 4,repetitions: 8))
+        standardExerciseList.append(Exercise(id: "xyz", name: "Front Squat", muscleGroup: "legs", sets: 4,repetitions: 8))
     }
     
 //MARK: Login funcstions
@@ -119,21 +102,17 @@ class AppViewModel: ObservableObject{
         try? auth.signOut()  //should i catch error for this??
         self.signedIn = false
     }
+    
+    
 //MARK: delete functions
-    /*func deleteUserExercise(indexSet: IndexSet){
-        user.exerciseList.remove(atOffsets: indexSet)
-    }*/
-    //onDelete homeView list for usersWorkouts. list in users class
-    func deleteUserWorkout(at indexSet: IndexSet){
-        user.workoutList.remove(atOffsets: indexSet)
-    }
-    //onDelete homeView list for standardWorkoutslist. list in viewmodel
     func deleteStandardWorkout(at indexSet: IndexSet){
         standardWorkoutsList.remove(atOffsets: indexSet)
     }
 //MARK: save functions
+    
+//MARK: Firebase functions
     func readExercisesFiresbase(){
-        guard let user = Auth.auth().currentUser else {return}
+        guard let user = auth.currentUser else {return}
         
         db.collection("users").document(user.uid).collection("exercises").addSnapshotListener{snapshot, err in
             guard let snapshot = snapshot else {return} //check snapshot is not nil
@@ -141,7 +120,9 @@ class AppViewModel: ObservableObject{
             if let err = err{ //check for error
                 print("Error getting document \(err)")
             }else{
-                self.standardExerciseList.removeAll() //the list where you save
+                self.standardExerciseList.removeAll() //list where all exercises go
+                self.dummyExercises() //add a default set of exercises
+                
                 for document in snapshot.documents{ //reading docs
                     let result = Result{
                         try document.data(as: Exercise.self)
@@ -158,7 +139,7 @@ class AppViewModel: ObservableObject{
         }
     }
     func readWorkoutsFiresbase(){
-        guard let user = Auth.auth().currentUser else {return}
+        guard let user = auth.currentUser else {return}
         
         db.collection("users").document(user.uid).collection("workouts").addSnapshotListener{ snapshot, err in
             guard let snapshot = snapshot else {return} //check snapshot is not nil
@@ -166,7 +147,8 @@ class AppViewModel: ObservableObject{
             if let err = err{ //check for error
                 print("Error getting document \(err)")
             }else{
-                self.standardWorkoutsList.removeAll() //the list where you save
+                self.standardWorkoutsList.removeAll() //list where all workouts go
+                self.dummyWorkout()
                 for document in snapshot.documents{//reading docs
                     //convert every result into workout
                     let result = Result{
@@ -186,7 +168,7 @@ class AppViewModel: ObservableObject{
             }
         }
     }
-    func saveToFirestore(exercise: Exercise){
+    func saveExerciseToFirestore(exercise: Exercise){
         guard let user = auth.currentUser else {return}
         do{
             _ = try db.collection("users").document(user.uid).collection("exercises").addDocument(from: exercise)
@@ -194,32 +176,37 @@ class AppViewModel: ObservableObject{
             print("error saving to DB")
         }
     }
-    //for full list. change name to delete exercise in db
+    //ONLY FOR TEST
+    func saveWorkoutToFirestore(workout: Workout){
+        guard let user = auth.currentUser else {return}
+        do{
+            _ = try db.collection("users").document(user.uid).collection("workouts").addDocument(from: workout)
+        } catch {
+            print("error saving to DB")
+        }
+    }
     func deleteExerciseInDb(indexSet: IndexSet){
         //standardExerciseList.remove(atOffsets: indexSet)
         
         for index in indexSet{
-                let item = standardExerciseList[index]
-                if let id = item.id,
-                   let user = auth.currentUser{
-                    db.collection("users").document(user.uid).collection("exercises").document(id).delete()
-                }
+            let item = standardExerciseList[index]
+            if let id = item.id,
+               let user = auth.currentUser{
+                db.collection("users").document(user.uid).collection("exercises").document(id).delete()
             }
+        }
         
     }
     func deleteWorkoutInDb(indexSet: IndexSet){
         //standardExerciseList.remove(atOffsets: indexSet)
         
         for index in indexSet{
-                let item = standardWorkoutsList[index]
-                if let id = item.id,
-                   let user = auth.currentUser{
-                    db.collection("users").document(user.uid).collection("workouts").document(id).delete()
-                }
+            let item = standardWorkoutsList[index]
+            if let id = item.id,
+               let user = auth.currentUser{
+                db.collection("users").document(user.uid).collection("workouts").document(id).delete()
             }
+        }
         
     }
-
-    
-    
 }

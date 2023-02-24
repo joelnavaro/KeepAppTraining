@@ -25,6 +25,7 @@ struct SignInView: View {
                     .resizable()
                     .scaledToFit()
                     .frame(width: 150, height: 150)
+                Text("KeepAppTraining").font(.system(size: 40)).padding(.bottom, 8)
                 VStack{
                     Group{
                         TextField("Email Address", text: $email)
@@ -49,15 +50,15 @@ struct SignInView: View {
                             .cornerRadius(8)
                     })
                     NavigationLink("Create Account", destination: SignUpView())
-                    NavigationLink("Try without account", destination: HomeView()).onTapGesture {
-                        /*if Auth.auth().currentUser == nil {
-                            viewModel.signedIn = true
-                            viewModel.signInAnonymously()
-                        }
-                        //does not work: ask david how to make a tapgesture work!
-                        //viewModel.signedIn = true
-                        print(viewModel.signedIn)*/
-                    }
+                    /*NavigationLink("Try without account", destination: HomeView()).onTapGesture {
+                        if Auth.auth().currentUser == nil {
+                         viewModel.signedIn = true
+                         viewModel.signInAnonymously()
+                         }
+                         //does not work: ask david how to make a tapgesture work!
+                         //viewModel.signedIn = true
+                         print(viewModel.signedIn)
+                    }*/
                 }
                 .padding()
                 Spacer()
@@ -81,6 +82,7 @@ struct SignUpView: View {
                     .resizable()
                     .scaledToFit()
                     .frame(width: 150, height: 150)
+                Text("KeepAppTraining").font(.system(size: 40)).padding(.bottom, 8)
                 
                 VStack{
                     Group{

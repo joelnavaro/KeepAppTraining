@@ -164,3 +164,59 @@ exercisesList.append(Exercise(name: "Back Squat", muscleGroup: "Legs", sets: 4,r
 exercisesList.append(Exercise(name: "Front Squat", muscleGroup: "Legs", sets: 4,repetitions: 8))*/
 
 //var a = Workout(name: "test", sets: 3, repetitions: 10)
+
+/*
+ rules_version = '2';
+ service cloud.firestore {
+ match /databases/{database}/documents {
+ match /{document=**} {
+ allow read, write: if
+ request.time < timestamp.date(2023, 2, 24);
+ }
+ }
+ }
+ */
+
+
+/*func deleteUserExercise(indexSet: IndexSet){
+ user.exerciseList.remove(atOffsets: indexSet)
+ }*/
+//onDelete homeView list for usersWorkouts. list in users class
+/*func deleteUserWorkout(at indexSet: IndexSet){
+    user.workoutList.remove(atOffsets: indexSet)
+}*/
+
+
+//MARK: save to firestore
+/*func dummyDbData(){
+ //default exercises
+ let a = Exercise(name: "Cable Triceps Pushdown", muscleGroup: "arms", sets: 8,repetitions: 8)
+ let b = Exercise(name: "Biceps curl", muscleGroup: "arms", sets: 8,repetitions: 8)
+ let c = Exercise(name: "Cable Chest Flys", muscleGroup: "chest", sets: 4,repetitions: 10)
+ let d = Exercise(name: "Incline Bench Press", muscleGroup: "chest", sets: 4,repetitions: 10)
+ let e = Exercise(name: "Back extension", muscleGroup: "back", sets: 4,repetitions: 6)
+ let f = Exercise(name: "Lat Pull-Down", muscleGroup: "back", sets: 4,repetitions: 6)
+ let g = Exercise(name: "Back Squat", muscleGroup: "legs", sets: 4,repetitions: 8)
+ let h = Exercise(name: "Front Squat", muscleGroup: "legs", sets: 4,repetitions: 8)
+ saveExerciseToFirestore(exercise: a)
+ saveExerciseToFirestore(exercise: b)
+ saveExerciseToFirestore(exercise: c)
+ saveExerciseToFirestore(exercise: d)
+ saveExerciseToFirestore(exercise: e)
+ saveExerciseToFirestore(exercise: f)
+ saveExerciseToFirestore(exercise: g)
+ saveExerciseToFirestore(exercise: h)
+ //default workout
+ var firstWorkout = Workout(name: "User's First Workout")
+ firstWorkout.exercisesList.append(Exercise(name: "Cable Triceps Pushdown", muscleGroup: "arms", sets: 8,repetitions: 8))
+ firstWorkout.exercisesList.append(Exercise(name: "Biceps curl", muscleGroup: "arms", sets: 8,repetitions: 8))
+ firstWorkout.exercisesList.append(Exercise(name: "Cable Chest Flys", muscleGroup: "chest", sets: 4,repetitions: 10))
+ firstWorkout.exercisesList.append(Exercise(name: "Incline Bench Press", muscleGroup: "chest", sets: 4,repetitions: 10))
+ firstWorkout.exercisesList.append(Exercise(name: "Back extension", muscleGroup: "back", sets: 4,repetitions: 6))
+ firstWorkout.exercisesList.append(Exercise(name: "Lat Pull-Down", muscleGroup: "back", sets: 4,repetitions: 6))
+ firstWorkout.exercisesList.append(Exercise(name: "Back Squat", muscleGroup: "legs", sets: 4,repetitions: 8))
+ firstWorkout.exercisesList.append(Exercise(name: "Front Squat", muscleGroup: "legs", sets: 4,repetitions: 8))
+ //standardWorkoutsList.append(firstWorkout)
+ saveWorkoutToFirestore(workout: firstWorkout)
+ }
+ */

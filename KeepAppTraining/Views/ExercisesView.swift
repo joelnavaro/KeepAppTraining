@@ -7,9 +7,7 @@ import FirebaseFirestoreSwift
 struct ExercisesView: View{
     @EnvironmentObject var viewModel: AppViewModel
     var list : [Exercise]
-    //@State var chest = [Exercise]()
-    var buttonsMenu = ["arms", "chest", "back", "legs"] //names on buttons
-    //@StateObject var workoutModel = Workout() //un workout
+    var buttonsMenu = ["arms", "chest", "back", "legs"]
     //MARK: list of exercises created onAppear
     @State var exerciseList : [Exercise] = []
     @State var addExerSheet = false
@@ -31,32 +29,40 @@ struct ExercisesView: View{
                             .padding(3)
                         }
                     }//ButtonsScrollView
-                    //MARK: shows user list
+                //MARK: LIST WITH FILTERED EXERCISES
                     VStack{
-                        Divider().padding(8)//linea divisoria
-                        Text("Filtered List")
-                        Divider().padding(8)//linea divisoria
-                        //MARK: PUT SHOWUSERLIST() instead WHEN APP READY TO SHOW
-                        //-----------------------------------------------------------------------
+                        Divider().padding(8)
+                        //MARK: List for the filter buttons
                         List(){
-                            ForEach(exerciseList){ exercise in
-                                NavigationLink(destination: ShowExerciseView(exercise: exercise), label: {CellView(name: exercise.name, muscleGroup: exercise.muscleGroup)})
+                            Section{
+                                ForEach(exerciseList){ exercise in
+                                    NavigationLink(destination: ShowExerciseView(exercise: exercise),
+                                                   label: {CellView(name: exercise.name, muscleGroup: exercise.muscleGroup)})
+                                }
+                                .listRowBackground(Color.blankSpace)
+                            } header:{
+                                Text("Filtered exercises list.")
                             }
-                            .listRowBackground(Color.blankSpace)
                         }
                         .cornerRadius(25)
                         .padding(8)
-                        //-----------------------------------------------------------------------
-                        Text("Full Exercises List")
+                //MARK: LIST WITH ALL EXERCISES
                         Divider().padding(8)
                         List(){
-                            ForEach(list){ exercise in
-                                NavigationLink(destination: ShowExerciseView(exercise: exercise), label: {CellView(name: exercise.name, muscleGroup: exercise.muscleGroup)})
+                            Section{
+                                ForEach(list){ exercise in
+                                    NavigationLink(destination: ShowExerciseView(exercise: exercise),
+                                                   label: {CellView(name: exercise.name, muscleGroup: exercise.muscleGroup)})
+                                }
+                                .onDelete(){ indexSet in
+                                    viewModel.deleteExerciseInDb(indexSet: indexSet)
+                                }
+                                .listRowBackground(Color.blankSpace)
+                            }header: {
+                                Text("Full exercises List.")
+                            }footer: {
+                                Text("All exercises existing are listed here.")
                             }
-                            .onDelete(){ indexSet in
-                                viewModel.deleteExerciseInDb(indexSet: indexSet)
-                            }
-                            .listRowBackground(Color.blankSpace)
                         }
                         .cornerRadius(25)
                         .padding(8)
@@ -75,10 +81,9 @@ struct ExercisesView: View{
                 .navigationTitle("Exercises")
             }//scrollv
             .padding(2)
-            //.background(Color(.init(white: 2, alpha: 0.05)))
         }//zstack
-        .onAppear(){ //when this view starts, sorts a list and show
-            //viewModel.dummyDbData()
+        .onAppear(){
+            viewModel.readExercisesFiresbase()
             exerciseList = filterListByGroups(from: list, group: buttonsMenu[Int.random(in: 0...3)])
             print("N Exercises: \(list.count) ExerciseView")
         }
@@ -117,7 +122,7 @@ struct ButtonView: View {
                 .blendMode(.colorBurn)
                 .frame(width: w/w1, height: h/h1) //60 35
                 .background(Color(red: 255/256, green: 255/256, blue: 255/256))
-                //.rotationEffect(.degrees(45))
+            //.rotationEffect(.degrees(45))
                 .cornerRadius(20)
             Text("\(item)")
         }
@@ -126,11 +131,11 @@ struct ButtonView: View {
 
 
 /*struct ExercisesView_Previews: PreviewProvider {
-    @EnvironmentObject var viewModel: AppViewModel
-    
-    static var previews: some View {
-        ExercisesView()
-            .environmentObject(AppViewModel())
-    }
-}*/
+ @EnvironmentObject var viewModel: AppViewModel
+ 
+ static var previews: some View {
+ ExercisesView()
+ .environmentObject(AppViewModel())
+ }
+ }*/
 
